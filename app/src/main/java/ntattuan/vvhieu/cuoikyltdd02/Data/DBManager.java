@@ -2,6 +2,7 @@ package ntattuan.vvhieu.cuoikyltdd02.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,6 +11,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ntattuan.vvhieu.cuoikyltdd02.Model.User;
+import ntattuan.vvhieu.cuoikyltdd02.Data.UserDAO;
 
 public class DBManager extends SQLiteOpenHelper {
     public static final String DATABASE_NAME ="QuanLyDoanPhiHoiPhi";
@@ -40,12 +44,10 @@ public class DBManager extends SQLiteOpenHelper {
     protected static final String DONEMONEY_CREATE_BY ="create_by";
 
     protected Context context;
-
     public DBManager(Context context) {
         super(context, DATABASE_NAME,null, 1);
         this.context = context;
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         //create table user
@@ -78,7 +80,6 @@ public class DBManager extends SQLiteOpenHelper {
                 DONEMONEY_CREATE_BY +" TEXT)";
         db.execSQL(sqlQuery);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);

@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         bnv_Main.add(new MeowBottomNavigation.Model(1, R.drawable.doan_vien));
         bnv_Main.add(new MeowBottomNavigation.Model(2, R.drawable.doan_phi));
         bnv_Main.add(new MeowBottomNavigation.Model(3, R.drawable.hoi_phi));
-        bnv_Main.add(new MeowBottomNavigation.Model(4, R.drawable.tao_dot));
+        if(LoginActivity.UserLogined.getRole() == App.ROLE_ADMIN)
+            bnv_Main.add(new MeowBottomNavigation.Model(4, R.drawable.tao_dot));
         bnv_Main.add(new MeowBottomNavigation.Model(5, R.drawable.ca_nhan));
 
         bnv_Main.show(1, true);
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void replace(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, fragment);
