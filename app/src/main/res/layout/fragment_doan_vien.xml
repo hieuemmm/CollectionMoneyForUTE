@@ -1,18 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="#03A9F4"
-    android:gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:textSize="24sp"
-        android:textColor="#ffffff"/>
+    >
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/doanvien_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#2082FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/doanvien_textSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/txt_search"
+            android:ems="10"
+            android:hint="Tìm kiếm đoàn viên..."
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:paddingLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/doanvien_search_bar"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/doanvien_SearchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_box_24" />
+
+        <ImageView
+            android:id="@+id/doanvien_SearchClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/doanvien_textSearch"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/doanvien_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:listSelector="@drawable/list_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doanvien_search_bar"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_goneMarginTop="60dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

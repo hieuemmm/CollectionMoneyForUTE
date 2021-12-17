@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_logo" />
 
     <EditText
-        android:id="@+id/loginUsername"
+        android:id="@+id/doanvien_textSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginFrame"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="@+id/loginFrame"
-        app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/doanvien_textSearch" />
 
     <CheckBox
         android:id="@+id/loginRemember"
@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginPassWord" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginButton"
+        android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"

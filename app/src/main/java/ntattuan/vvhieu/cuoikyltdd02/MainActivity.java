@@ -1,12 +1,21 @@
 package ntattuan.vvhieu.cuoikyltdd02;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+
+import java.util.List;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -16,14 +25,18 @@ import ntattuan.vvhieu.cuoikyltdd02.Fragment.DoanPhiFragment;
 import ntattuan.vvhieu.cuoikyltdd02.Fragment.HoiPhiFragment;
 import ntattuan.vvhieu.cuoikyltdd02.Fragment.TaoDotFragment;
 import ntattuan.vvhieu.cuoikyltdd02.Fragment.CaNhanFragment;
+import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
+import ntattuan.vvhieu.cuoikyltdd02.Data.CadidateDAO;
 
 public class MainActivity extends AppCompatActivity {
+    private Bundle savedInstanceState;
     private MeowBottomNavigation bnv_Main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bnv_Main = findViewById(R.id.bnv_Main);
         bnv_Main.add(new MeowBottomNavigation.Model(1, R.drawable.doan_vien));
         bnv_Main.add(new MeowBottomNavigation.Model(2, R.drawable.doan_phi));
@@ -63,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void replace(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, fragment);

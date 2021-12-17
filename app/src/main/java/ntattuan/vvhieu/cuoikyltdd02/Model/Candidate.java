@@ -1,5 +1,8 @@
 package ntattuan.vvhieu.cuoikyltdd02.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 public class Candidate {
     private int Id;
     private String Name;
@@ -33,7 +36,12 @@ public class Candidate {
         Gender = gender;
         Avatar = avatar;
     }
-
+    public Candidate(String name, String CMND, int gender, byte[] avatar) {
+        Name = name;
+        this.CMND = CMND;
+        Gender = gender;
+        Avatar = avatar;
+    }
     public String getName() {
         return Name;
     }
@@ -53,7 +61,10 @@ public class Candidate {
     public int getGender() {
         return Gender;
     }
-
+    public String getGenderToString() {
+        if (Gender == 1) return "Nam";
+        return "Nữ";
+    }
     public void setGender(int gender) {
         Gender = gender;
     }
@@ -69,7 +80,11 @@ public class Candidate {
     public byte[] getAvatar() {
         return Avatar;
     }
-
+    public Bitmap getAvatarToBitMap() {
+        byte[] image = this.getAvatar();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
+        return bitmap;
+    }
     public void setAvatar(byte[] avatar) {
         Avatar = avatar;
     }
@@ -88,12 +103,6 @@ public class Candidate {
 
     public void setDoanPhi(boolean doanPhi) {
         DoanPhi = doanPhi;
-    }
-
-    @Override
-    public String toString() {
-        if (Gender == 1) return "Nam";
-        return "Nữ";
     }
 
 }

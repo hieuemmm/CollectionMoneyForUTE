@@ -27,7 +27,17 @@ public class CadidateDAO extends DBManager {
         db.insert(TABLE_CANDIDATE, null, values);
         db.close();
     }
-
+    //Check a user Exits
+    public boolean CheckCandidateExits(String CMND) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_GENDER, CANDIDATE_AVATAR},
+                CANDIDATE_CMND + "=?",
+                new String[]{CMND}, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
+    }
     //Delete a Candidate
     public void deleteCandidate(Candidate candidate) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -86,8 +96,8 @@ public class CadidateDAO extends DBManager {
         List<Candidate> listCandidate = new ArrayList<Candidate>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_GENDER, CANDIDATE_AVATAR},
-                CANDIDATE_NAME + "=?",
-                new String[]{name}, null, null, null, null);
+                CANDIDATE_NAME + " LIKE ? COLLATE NOCASE",
+                new String[]{"%"+name+"%"}, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 Candidate candidate = new Candidate();
