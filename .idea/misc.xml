@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_login.xml" value="0.33793103448275863" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_ca_nhan.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_doan_phi.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_doan_vien.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_hoi_phi.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_tao_dot.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/menu/navigation.xml" value="0.17447916666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
