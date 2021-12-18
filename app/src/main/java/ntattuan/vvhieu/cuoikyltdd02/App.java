@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import java.io.ByteArrayOutputStream;
 
 public class App {
@@ -16,6 +20,8 @@ public class App {
     public static final int ROLE_BITHU = 0;
     public static final int GENDER_NAM = 1;
     public static final int GENDER_NU = 0;
+    public static final int REQUEST_CODE_CAMERA = 123;
+    public static final int REQUEST_CODE_FOLDER = 456;
     public static byte[] DrawableToByteArray(int drawableID, Context context){
         Drawable drawable =  context.getResources().getDrawable(drawableID);
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
