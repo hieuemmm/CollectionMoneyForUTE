@@ -14,14 +14,30 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import ntattuan.vvhieu.cuoikyltdd02.Model.User;
 
 public class App {
+    public static User UserLogined = null;
+    public static int DoanVien_Tab_Current = 0;
+    public static int DotNopTienDoanPhi_Current = 1;
+    public static int DotNopTienHoiPhi_Current = 2;
     public static final int ROLE_ADMIN = 1;
     public static final int ROLE_BITHU = 0;
+    public static final String STRING_NO_ROLE_ADMIN = "Bạn không có quyền Adminitartor.";
     public static final int GENDER_NAM = 1;
     public static final int GENDER_NU = 0;
+    public static final int ACTIVE = 1;
+    public static final int NO_ACTIVE = 0;
     public static final int REQUEST_CODE_CAMERA = 123;
     public static final int REQUEST_CODE_FOLDER = 456;
+    public static final int DOANVIEN_TAB_ALL = 0;
+    public static final int DOANVIEN_TAB_DOAN_PHI = 1;
+    public static final int DOANVIEN_TAB_HOI_PHI = 2;
+    public static final int DOANVIEN_TAB_CHO_DUYET = 3;
+
     public static byte[] DrawableToByteArray(int drawableID, Context context){
         Drawable drawable =  context.getResources().getDrawable(drawableID);
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
@@ -43,5 +59,15 @@ public class App {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    public static String GetTimeCurrent() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+    public static boolean CheckIsAdministrator() {
+        if (UserLogined.getRole()==ROLE_ADMIN)
+            return true;
+        return false;
     }
 }

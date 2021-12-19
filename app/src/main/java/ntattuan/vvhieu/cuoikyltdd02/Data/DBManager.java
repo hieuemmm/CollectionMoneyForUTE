@@ -29,6 +29,7 @@ public class DBManager extends SQLiteOpenHelper {
     protected static final String CANDIDATE_CMND ="cmnd";
     protected static final String CANDIDATE_GENDER ="gender";
     protected static final String CANDIDATE_AVATAR ="avatar";
+    protected static final String CANDIDATE_IS_ACTIVE ="is_active";
 
     protected static final String TABLE_MONEYROUND ="money_round";
     protected static final String MONEYROUND_ID ="id";
@@ -41,7 +42,11 @@ public class DBManager extends SQLiteOpenHelper {
     protected static final String DONEMONEY_ID ="id";
     protected static final String DONEMONEY_CANDIDATE_ID ="candidate_id";
     protected static final String DONEMONEY_MONEYROUND_ID ="money_round_id";
+    protected static final String DONEMONEY_IS_ACTIVE ="is_active";
     protected static final String DONEMONEY_CREATE_BY ="create_by";
+    protected static final String DONEMONEY_CREATE_TIME ="create_time";
+    protected static final String DONEMONEY_DELETE_BY ="delete_by";
+    protected static final String DONEMONEY_DELETE_TIME ="delete_time";
 
     protected Context context;
     public DBManager(Context context) {
@@ -61,8 +66,9 @@ public class DBManager extends SQLiteOpenHelper {
                 CANDIDATE_ID +" INTEGER  primary key, "+
                 CANDIDATE_NAME + " TEXT, "+
                 CANDIDATE_CMND + " TEXT, "+
-                CANDIDATE_GENDER + " integer, "+ //1 nam 0 nu
-                CANDIDATE_AVATAR +" BLOB)";
+                CANDIDATE_GENDER + " INTEGER, "+ //1 nam 0 nu
+                CANDIDATE_AVATAR + " BLOB, "+
+                CANDIDATE_IS_ACTIVE +" INTEGER)";
         db.execSQL(sqlQuery);
         //create table moneyround
         sqlQuery = "CREATE TABLE "+TABLE_MONEYROUND +" (" +
@@ -77,7 +83,11 @@ public class DBManager extends SQLiteOpenHelper {
                 DONEMONEY_ID +" INTEGER  primary key, "+
                 DONEMONEY_CANDIDATE_ID + " INTEGER, "+
                 DONEMONEY_MONEYROUND_ID + " INTEGER, "+
-                DONEMONEY_CREATE_BY +" TEXT)";
+                DONEMONEY_IS_ACTIVE + " INTEGER, "+
+                DONEMONEY_CREATE_BY + "  TEXT, "+
+                DONEMONEY_CREATE_TIME + "  TEXT, "+
+                DONEMONEY_DELETE_BY + "  TEXT, "+
+                DONEMONEY_DELETE_TIME +" TEXT)";
         db.execSQL(sqlQuery);
     }
     @Override

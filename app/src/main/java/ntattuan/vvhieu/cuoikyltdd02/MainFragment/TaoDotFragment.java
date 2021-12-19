@@ -1,4 +1,4 @@
-package ntattuan.vvhieu.cuoikyltdd02.Fragment;
+package ntattuan.vvhieu.cuoikyltdd02.MainFragment;
 
 import android.os.Bundle;
 

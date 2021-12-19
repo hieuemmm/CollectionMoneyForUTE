@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ntattuan.vvhieu.cuoikyltdd02.App;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.DoneMoney;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
@@ -16,14 +20,19 @@ public class DoneMoneyDAO extends DBManager{
     //select by cadidate_id & moneyround_id
     public DoneMoney getDoneMoneyByID(int Candidate_id,int MoneyRound_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_DONEMONEY, new String[]{DONEMONEY_ID, DONEMONEY_CANDIDATE_ID, DONEMONEY_MONEYROUND_ID, DONEMONEY_CREATE_BY},
-                DONEMONEY_CANDIDATE_ID + "=? AND "+DONEMONEY_MONEYROUND_ID +"=?",
-                new String[]{String.valueOf(Candidate_id),String.valueOf(MoneyRound_id)}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_DONEMONEY, new String[]{DONEMONEY_ID, DONEMONEY_CANDIDATE_ID, DONEMONEY_MONEYROUND_ID, DONEMONEY_IS_ACTIVE,DONEMONEY_CREATE_BY,DONEMONEY_CREATE_TIME,DONEMONEY_DELETE_BY,DONEMONEY_DELETE_TIME},
+                DONEMONEY_CANDIDATE_ID + "=? AND "+DONEMONEY_MONEYROUND_ID +"=? AND "+ DONEMONEY_IS_ACTIVE +"=?",
+                new String[]{String.valueOf(Candidate_id),String.valueOf(MoneyRound_id),String.valueOf(App.ACTIVE)}, null, null, null, null);
         DoneMoney doneMoney = new DoneMoney();
         if (cursor.moveToFirst()) {
+            doneMoney.setId(cursor.getInt(0));
             doneMoney.setCadidate_id(cursor.getInt(1));
             doneMoney.setMoneyround_id(cursor.getInt(2));
-            doneMoney.setCreate_by(cursor.getString(3));
+            doneMoney.setIsActive(cursor.getInt(3));
+            doneMoney.setCreate_by(cursor.getString(4));
+            doneMoney.setCreate_time(cursor.getString(5));
+            doneMoney.setDelete_by(cursor.getString(6));
+            doneMoney.setDelete_time(cursor.getString(7));
         }
         cursor.close();
         db.close();
@@ -31,30 +40,33 @@ public class DoneMoneyDAO extends DBManager{
     }
 
     public void updateDoneMoney (DoneMoney doneMoney) {
-        if (checkExits(doneMoney.getCadidate_id(),doneMoney.getMoneyround_id())){
-            deleteDoneMoney(doneMoney);
-        }else {
-            addDoneMoney(doneMoney);
-        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DONEMONEY_IS_ACTIVE, doneMoney.getIsActive());
+        values.put(DONEMONEY_DELETE_BY, doneMoney.getCreate_by());
+        values.put(DONEMONEY_DELETE_TIME, doneMoney.getDelete_time());
+        db.update(TABLE_DONEMONEY, values, DONEMONEY_ID + "=?", new String[]{String.valueOf(doneMoney.getId())});
     }
     //Add new a DoneMoney
-    private void addDoneMoney(DoneMoney doneMoney) {
+    public void addDoneMoney(DoneMoney doneMoney) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DONEMONEY_CANDIDATE_ID, doneMoney.getCadidate_id());
         values.put(DONEMONEY_MONEYROUND_ID, doneMoney.getMoneyround_id());
+        values.put(DONEMONEY_IS_ACTIVE, doneMoney.getIsActive());
         values.put(DONEMONEY_CREATE_BY, doneMoney.getCreate_by());
-        //Neu de null thi khi value bang null thi loi
+        values.put(DONEMONEY_CREATE_TIME, doneMoney.getCreate_time());
+        values.put(DONEMONEY_DELETE_BY, " ");
+        values.put(DONEMONEY_DELETE_TIME, " ");
         db.insert(TABLE_DONEMONEY, null, values);
         db.close();
     }
     //checkExits
-    private boolean checkExits(int Candidate_id,int MoneyRound_id) {
+    public boolean checkExits(int Candidate_id,int MoneyRound_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_DONEMONEY, new String[]{DONEMONEY_ID},
-                DONEMONEY_CANDIDATE_ID + "=? AND "+DONEMONEY_MONEYROUND_ID +"=?",
-                new String[]{String.valueOf(Candidate_id),String.valueOf(MoneyRound_id)}, null, null, null, null);
-        Candidate candidate = new Candidate();
+        Cursor cursor = db.query(TABLE_DONEMONEY, new String[]{DONEMONEY_ID, DONEMONEY_CANDIDATE_ID, DONEMONEY_MONEYROUND_ID, DONEMONEY_IS_ACTIVE,DONEMONEY_CREATE_BY,DONEMONEY_CREATE_TIME,DONEMONEY_DELETE_BY,DONEMONEY_DELETE_TIME},
+                DONEMONEY_CANDIDATE_ID + "=? AND "+DONEMONEY_MONEYROUND_ID +"=? AND "+ DONEMONEY_IS_ACTIVE +"=?",
+                new String[]{String.valueOf(Candidate_id),String.valueOf(MoneyRound_id),String.valueOf(App.ACTIVE)}, null, null, null, null);
         if (cursor.moveToFirst()) {
             return true;//tồn tại
         }
@@ -62,12 +74,27 @@ public class DoneMoneyDAO extends DBManager{
         db.close();
         return false;
     }
-
-    //Delete a DoneMoney
-    private void deleteDoneMoney(DoneMoney doneMoney) {
+    public List<DoneMoney> getAllDoneMoney() {
+        List<DoneMoney> doneMoneyList = new ArrayList<DoneMoney>();
+        String selectQuery = "SELECT  * FROM " + TABLE_DONEMONEY;
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_DONEMONEY, DONEMONEY_CANDIDATE_ID + " = ? AND "+ DONEMONEY_MONEYROUND_ID +"=?",
-                new String[]{String.valueOf(doneMoney.getCadidate_id()),String.valueOf(doneMoney.getMoneyround_id())});
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                DoneMoney doneMoney = new DoneMoney();
+                doneMoney.setId(cursor.getInt(0));
+                doneMoney.setCadidate_id(cursor.getInt(1));
+                doneMoney.setMoneyround_id(cursor.getInt(2));
+                doneMoney.setIsActive(cursor.getInt(3));
+                doneMoney.setCreate_by(cursor.getString(4));
+                doneMoney.setCreate_time(cursor.getString(5));
+                doneMoney.setCreate_by(cursor.getString(6));
+                doneMoney.setDelete_time(cursor.getString(7));
+                doneMoneyList.add(doneMoney);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
         db.close();
+        return doneMoneyList;
     }
 }

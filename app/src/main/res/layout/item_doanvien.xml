@@ -16,18 +16,28 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="VectorDrawableCompat" />
 
+    <ImageView
+        android:id="@+id/candidate_luachon"
+        android:layout_width="34sp"
+        android:layout_height="34sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/menu_dost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="VectorDrawableCompat" />
+
     <TextView
         android:id="@+id/candidate_Name"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:text="Candidate_Name"
         android:textColor="#000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/candidate_luachon"
         app:layout_constraintStart_toEndOf="@+id/candidate_avatar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,12 +45,23 @@
         android:id="@+id/candidate_CMND"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="10dp"
         android:text="Candidate_CMND"
         android:textColor="#333"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/candidate_luachon"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/candidate_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/candidate_Name" />
+
+    <TextView
+        android:id="@+id/candidate_ID"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:textColor="#00FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/candidate_luachon"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/candidate_avatar"
         app:layout_constraintTop_toBottomOf="@+id/candidate_Name" />
@@ -49,15 +70,71 @@
         android:id="@+id/candidate_Gender"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="right"
-        android:text="Candidate_Gender"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="left"
+        android:text="Giới tính Nữ"
         android:textColor="#0288d1"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Candidate_Button_DoanPhi"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/candidate_avatar"
         app:layout_constraintTop_toBottomOf="@+id/candidate_CMND" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Candidate_Button_HoiPhi"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_red_border"
+        android:text="Hội phí"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/candidate_Gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Candidate_Button_DuyetNgay"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_blue_border"
+        android:text="Duyệt ngay"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/candidate_Gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Candidate_Button_DoanPhi"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_green_border"
+        android:text="Đoàn phí"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/candidate_Gender"
+        app:layout_constraintEnd_toStartOf="@+id/Candidate_Button_HoiPhi"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/candidate_Is_Active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/candidate_avatar"
+        app:layout_constraintEnd_toEndOf="@+id/candidate_avatar"
+        app:layout_constraintStart_toStartOf="@+id/candidate_avatar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

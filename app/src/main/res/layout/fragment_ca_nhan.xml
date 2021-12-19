@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/box_canhan" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/logoutButton"
+        android:id="@+id/Candidate_Button_DoanPhi"
         android:layout_width="366dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"

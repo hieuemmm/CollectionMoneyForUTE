@@ -19,7 +19,6 @@ public class LoginActivity extends AppCompatActivity {
     private UserDAO userDAO;
     private TextView loginUsername,loginPassWord;
     private Button loginButton;
-    public static User UserLogined = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         TaoDuLieuMau();
         loginUsername = (TextView) findViewById(R.id.doanvien_textSearch);
         loginPassWord = (TextView) findViewById(R.id.loginPassWord);
-        loginButton = (Button) findViewById(R.id.logoutButton);
+        loginButton = (Button) findViewById(R.id.Candidate_Button_DoanPhi);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -55,9 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                     loginPassWord.getText().toString().trim()
             );
             if (userDAO.CheckLogin(user)) {
-                UserLogined = userDAO.getInforUser(user);
-                Intent listItem = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(listItem);
+                App.UserLogined = userDAO.getInforUser(user);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             } else {
                 Toast toast = Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT);
                 toast.show();

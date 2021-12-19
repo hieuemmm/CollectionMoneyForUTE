@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginPassWord" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/logoutButton"
+        android:id="@+id/Candidate_Button_DoanPhi"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
