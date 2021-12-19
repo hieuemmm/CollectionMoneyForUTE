@@ -1,9 +1,12 @@
 package ntattuan.vvhieu.cuoikyltdd02.MainFragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +28,8 @@ import ntattuan.vvhieu.cuoikyltdd02.App;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.R;
-
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 public class DoanVienFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -37,6 +41,7 @@ public class DoanVienFragment extends Fragment {
     private CandidateDAO candidateDAO;
     private DoanVienAdapter doanVienAdapter;
     private TabLayout DoanVien_View_TabLayout;
+    private FragmentActivity myfragmentActivity = this.getActivity();
 
     public DoanVienFragment() {
     }
@@ -58,6 +63,15 @@ public class DoanVienFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    //Khi một Intent Finish và gửi về kết quả
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            LoadListView_DoanVien();
+            App.ToastShow(this.getActivity(), "Thêm thành công");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,8 +81,8 @@ public class DoanVienFragment extends Fragment {
         doanvien_SearchClose = (ImageView) view.findViewById(R.id.doanvien_SearchClose);
         DoanVien_View_TabLayout = (TabLayout) view.findViewById(R.id.DoanVien_View_TabLayout);
         doanvien_listview = (ListView) view.findViewById(R.id.doanvien_listview);
-
-        //TaoDuLieuMau();
+        candidateDAO = new CandidateDAO(this.getActivity());
+        TaoDuLieuMau();
         LoadListView_DoanVien();
         //Tìm kiếm đoàn viên
         doanvien_textSearch.addTextChangedListener(new TextWatcher() {
@@ -95,7 +109,8 @@ public class DoanVienFragment extends Fragment {
         doanvien_ButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AddDoanVienActivity.class));
+                Intent i = new Intent(getActivity(), AddDoanVienActivity.class);
+                startActivityForResult(i, App.LAUNCH_SECOND_ACTIVITY);
             }
         });
         doanvien_SearchClose.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +151,7 @@ public class DoanVienFragment extends Fragment {
         return view;
     }
 
-    private void LoadListView_DoanVien() {
-        candidateDAO = new CandidateDAO(this.getActivity());
+    public void LoadListView_DoanVien() {
         List<Candidate> candidates = candidateDAO.getAllCandidate();
         doanVienAdapter = new DoanVienAdapter(this.getActivity(), candidates);
         doanvien_listview.setAdapter(doanVienAdapter);
@@ -151,10 +165,17 @@ public class DoanVienFragment extends Fragment {
 
     private void TaoDuLieuMau() {
         List<Candidate> candidates = new ArrayList<Candidate>();
-        Candidate candidate1 = new Candidate("Hoài Bão", "293847563", App.GENDER_NAM, App.DrawableToByteArray(R.drawable.candidate_avatar, this.getActivity()), App.ACTIVE);
-        Candidate candidate2 = new Candidate("Hà Minh Nguyệt", "293847564", App.GENDER_NU, App.DrawableToByteArray(R.drawable.candidate_avatar, this.getActivity()), App.NO_ACTIVE);
-        Candidate candidate3 = new Candidate("Huỳnh Trọng Khiêm", "293847565", App.GENDER_NAM, App.DrawableToByteArray(R.drawable.candidate_avatar, this.getActivity()), App.ACTIVE);
-        Candidate candidate4 = new Candidate("Đào Thị Hoa", "293847566", App.GENDER_NU, App.DrawableToByteArray(R.drawable.candidate_avatar, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate1 = new Candidate(
+                "Hoài Bão",
+                "293847563",
+                "0983746155",
+                App.GENDER_NAM,
+                App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()),
+                App.ACTIVE
+        );
+        Candidate candidate2 = new Candidate("Hà Minh Nguyệt", "293847564","0953746182", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate3 = new Candidate("Huỳnh Trọng Khiêm", "293847565","0983746101", App.GENDER_NAM, App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()), App.ACTIVE);
+        Candidate candidate4 = new Candidate("Đào Thị Hoa", "293847566","0983746132", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()), App.NO_ACTIVE);
         candidates.add(candidate1);
         candidates.add(candidate2);
         candidates.add(candidate3);

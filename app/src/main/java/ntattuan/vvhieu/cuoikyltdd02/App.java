@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,7 @@ public class App {
     public static final int NO_ACTIVE = 0;
     public static final int REQUEST_CODE_CAMERA = 123;
     public static final int REQUEST_CODE_FOLDER = 456;
+    public static final int LAUNCH_SECOND_ACTIVITY = 321;
     public static final int DOANVIEN_TAB_ALL = 0;
     public static final int DOANVIEN_TAB_DOAN_PHI = 1;
     public static final int DOANVIEN_TAB_HOI_PHI = 2;
@@ -45,6 +47,14 @@ public class App {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytedata = stream.toByteArray();
         return bytedata;
+    }
+    public static byte[] getImageBitmap(ImageView img) {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) img.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] image = byteArrayOutputStream.toByteArray();
+        return image;
     }
     public static void ToastShow(Context context,String s){
         Toast toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);

@@ -13,6 +13,7 @@ public class Candidate {
     private int Id;
     private String Name;
     private String CMND;
+    private String SDT;
     private int Gender;
     private byte[] Avatar;
     private int IsActive;
@@ -22,45 +23,21 @@ public class Candidate {
     public Candidate() {
 
     }
-
-    public Candidate(int id) {
-        this.Id = id;
-    }
-
-    public Candidate(String name, String CMND, int gender) {
+    public Candidate(String name, String CMND, String SDT, int gender, byte[] avatar, int isActive) {
         Name = name;
         this.CMND = CMND;
-        Gender = gender;
-    }
-
-    public Candidate(int id, String name, String CMND, int gender) {
-        Id = id;
-        Name = name;
-        this.CMND = CMND;
-        Gender = gender;
-    }
-
-    public Candidate(String name, String CMND, int gender, byte[] avatar) {
-        Name = name;
-        this.CMND = CMND;
-        Gender = gender;
-        Avatar = avatar;
-    }
-
-    public Candidate(int id, String name, String CMND, int gender, byte[] avatar) {
-        Id = id;
-        Name = name;
-        this.CMND = CMND;
-        Gender = gender;
-        Avatar = avatar;
-    }
-
-    public Candidate(String name, String CMND, int gender, byte[] avatar, int isActive) {
-        Name = name;
-        this.CMND = CMND;
+        this.SDT = SDT;
         Gender = gender;
         Avatar = avatar;
         IsActive = isActive;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
     public String getName() {

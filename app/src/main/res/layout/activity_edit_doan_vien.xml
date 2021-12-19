@@ -40,10 +40,10 @@
                 android:layout_width="144dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/candidate_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/candidate_avatar"/>
             <ImageView
                 android:id="@+id/DoanVien_Edit_ButtonCamera"
                 android:layout_width="50dp"
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Số điện thoai (Nếu có):"
+                android:text="Số điện thoại (Nếu có):"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_CMND" />
 
@@ -167,7 +167,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="0/9 kí tự "
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_Name" />
@@ -178,7 +177,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="0/10 kí tự"
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_CMND" />
@@ -223,7 +221,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_button_long"
-                android:text="Thêm đoàn viên"
+                android:text="Sửa đoàn viên"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

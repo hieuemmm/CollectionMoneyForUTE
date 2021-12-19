@@ -3,6 +3,8 @@ package ntattuan.vvhieu.cuoikyltdd02.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +22,14 @@ import java.util.List;
 import ntattuan.vvhieu.cuoikyltdd02.App;
 import ntattuan.vvhieu.cuoikyltdd02.Data.DoneMoneyDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
+import ntattuan.vvhieu.cuoikyltdd02.EditDoanVienActivity;
+import ntattuan.vvhieu.cuoikyltdd02.LoginActivity;
+import ntattuan.vvhieu.cuoikyltdd02.MainActivity;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.DoneMoney;
 import ntattuan.vvhieu.cuoikyltdd02.R;
 
 public class DoanVienAdapter extends BaseAdapter {
-    public static boolean menuSubDialog = false;
     public List<Candidate> listCandidate;
     private ViewHolder holder;
     private DoneMoneyDAO doneMoneyDAO;
@@ -95,61 +99,56 @@ public class DoanVienAdapter extends BaseAdapter {
         holder.candidate_luachon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!menuSubDialog){
-                    menuSubDialog = !menuSubDialog;
-                    PopupMenu popup = new PopupMenu(v.getContext(), v.findViewById(R.id.candidate_luachon));
-                    popup.getMenuInflater().inflate(R.menu.clipboard_popup, popup.getMenu());
-                    popup.show();
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.view:
-                                    App.ToastShow(v.getContext().getApplicationContext(), candidate.getName());
-                                    break;
-                                case R.id.edit:
-                                    App.ToastShow(v.getContext().getApplicationContext(), "Nhấn vào 2");
-                                    break;
-                                case R.id.delete:
-                                    if (App.CheckIsAdministrator()){
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                                        builder.setTitle("Xóa đoàn viên");
-                                        builder.setMessage("Bạn muốn xóa mọi dữ liệu của Đoàn viên " + candidate.getName() + " ?");
-                                        builder.setPositiveButton("Xóa ngay", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                candidateDAO.deleteCandidate(candidate);
-                                                listCandidate.remove(candidate);
-                                                hiddenCandidateItem();
-                                                App.ToastShow(v.getContext().getApplicationContext(), "Xóa thành công?");
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                        builder.setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                        AlertDialog alert = builder.create();
-                                        alert.show();
-                                    }else{
-                                        App.ToastShow(v.getContext().getApplicationContext(), App.STRING_NO_ROLE_ADMIN);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            menuSubDialog = !menuSubDialog;
-                            return true;
+
+                PopupMenu popup = new PopupMenu(v.getContext(), v.findViewById(R.id.candidate_luachon));
+                popup.getMenuInflater().inflate(R.menu.clipboard_popup, popup.getMenu());
+                popup.show();
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.view:
+                                App.ToastShow(v.getContext().getApplicationContext(), candidate.getName());
+                                break;
+                            case R.id.edit:
+                                Intent intent = new Intent(context, EditDoanVienActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("CandidateID", candidate.getId());
+                                intent.putExtra("CandidateCurrent", bundle);
+                                context.startActivity(intent);
+                                break;
+                            case R.id.delete:
+                                if (App.CheckIsAdministrator()) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                                    builder.setTitle("Xóa đoàn viên");
+                                    builder.setMessage("Bạn muốn xóa mọi dữ liệu của Đoàn viên " + candidate.getName() + " ?");
+                                    builder.setPositiveButton("Xóa ngay", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            candidateDAO.deleteCandidate(candidate);
+                                            listCandidate.remove(candidate);
+                                            hiddenCandidateItem();
+                                            App.ToastShow(v.getContext().getApplicationContext(), "Xóa thành công?");
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    builder.setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                } else {
+                                    App.ToastShow(v.getContext().getApplicationContext(), App.STRING_NO_ROLE_ADMIN);
+                                }
+                                break;
+                            default:
+                                break;
                         }
-                    });
-                    popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
-                        @Override
-                        public void onDismiss(PopupMenu menu) {
-                            menuSubDialog = !menuSubDialog;
-                        }
-                    });
-                }
+                        return true;
+                    }
+                });
             }
         });
         holder.Candidate_Button_DoanPhi.setOnClickListener(new View.OnClickListener() {
@@ -319,6 +318,7 @@ public class DoanVienAdapter extends BaseAdapter {
             }
         }
     }
+
     private void hiddenCandidateItem() {
         holder.candidate_avatar.setVisibility(View.GONE);
         holder.candidate_luachon.setVisibility(View.GONE);
@@ -330,6 +330,7 @@ public class DoanVienAdapter extends BaseAdapter {
         holder.Candidate_Button_HoiPhi.setVisibility(View.GONE);
         holder.Candidate_Button_DuyetNgay.setVisibility(View.GONE);
     }
+
     static class ViewHolder {
         ImageView candidate_avatar, candidate_luachon, candidate_Is_Active;
         TextView candidate_Name;

@@ -27,6 +27,7 @@ public class DBManager extends SQLiteOpenHelper {
     protected static final String CANDIDATE_ID ="id";
     protected static final String CANDIDATE_NAME ="name";
     protected static final String CANDIDATE_CMND ="cmnd";
+    protected static final String CANDIDATE_SDT="sdt";
     protected static final String CANDIDATE_GENDER ="gender";
     protected static final String CANDIDATE_AVATAR ="avatar";
     protected static final String CANDIDATE_IS_ACTIVE ="is_active";
@@ -66,6 +67,7 @@ public class DBManager extends SQLiteOpenHelper {
                 CANDIDATE_ID +" INTEGER  primary key, "+
                 CANDIDATE_NAME + " TEXT, "+
                 CANDIDATE_CMND + " TEXT, "+
+                CANDIDATE_SDT + " TEXT, "+
                 CANDIDATE_GENDER + " INTEGER, "+ //1 nam 0 nu
                 CANDIDATE_AVATAR + " BLOB, "+
                 CANDIDATE_IS_ACTIVE +" INTEGER)";

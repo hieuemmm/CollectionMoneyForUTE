@@ -2,6 +2,7 @@ package ntattuan.vvhieu.cuoikyltdd02;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import ntattuan.vvhieu.cuoikyltdd02.MainFragment.CaNhanFragment;
 public class MainActivity extends AppCompatActivity {
     private Bundle savedInstanceState;
     private MeowBottomNavigation bnv_Main;
-
+    public static Fragment fragmentDoanVien = new DoanVienFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public Unit invoke(MeowBottomNavigation.Model model) {
                 switch (model.getId()) {
                     case 1:
-                        replace(new DoanVienFragment());
+                        replace(fragmentDoanVien);
                         bnv_Main.show(1, true);
                         break;
                     case 2:

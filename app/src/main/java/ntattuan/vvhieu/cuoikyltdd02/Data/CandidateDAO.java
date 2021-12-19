@@ -25,6 +25,7 @@ public class CandidateDAO extends DBManager {
         ContentValues values = new ContentValues();
         values.put(CANDIDATE_NAME, candidate.getName());
         values.put(CANDIDATE_CMND, candidate.getCMND());
+        values.put(CANDIDATE_SDT, candidate.getSDT());
         values.put(CANDIDATE_GENDER, candidate.getGender());
         values.put(CANDIDATE_AVATAR, candidate.getAvatar());
         values.put(CANDIDATE_IS_ACTIVE, candidate.getIsActive());
@@ -36,9 +37,14 @@ public class CandidateDAO extends DBManager {
     //Check a user Exits
     public boolean CheckCandidateExits(String CMND) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_GENDER, CANDIDATE_AVATAR},
+        Cursor cursor = db.query(TABLE_CANDIDATE,
+                new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
                 CANDIDATE_CMND + "=?",
-                new String[]{CMND}, null, null, null, null);
+                new String[]{String.valueOf(CMND)},
+                null,
+                null,
+                null,
+                null);
         if (cursor.getCount() > 0) {
             return true;
         }
@@ -74,9 +80,10 @@ public class CandidateDAO extends DBManager {
                 candidate.setId(cursor.getInt(0));
                 candidate.setName(cursor.getString(1));
                 candidate.setCMND(cursor.getString(2));
-                candidate.setGender(cursor.getInt(3));
-                candidate.setAvatar(cursor.getBlob(4));
-                candidate.setIsActive(cursor.getInt(5));
+                candidate.setSDT(cursor.getString(3));
+                candidate.setGender(cursor.getInt(4));
+                candidate.setAvatar(cursor.getBlob(5));
+                candidate.setIsActive(cursor.getInt(6));
                 //Kiểm tra nạp đoàn phí/Hội phí hay chưa?
                 if (doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current)) {
                     candidate.setDoanPhi(true);
@@ -95,7 +102,7 @@ public class CandidateDAO extends DBManager {
     //select by id
     public Candidate getCandidateByID(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_GENDER, CANDIDATE_AVATAR},
+        Cursor cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
                 CANDIDATE_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         Candidate candidate = new Candidate();
@@ -103,8 +110,10 @@ public class CandidateDAO extends DBManager {
             candidate.setId(cursor.getInt(0));
             candidate.setName(cursor.getString(1));
             candidate.setCMND(cursor.getString(2));
-            candidate.setGender(cursor.getInt(3));
-            candidate.setAvatar(cursor.getBlob(4));
+            candidate.setSDT(cursor.getString(3));
+            candidate.setGender(cursor.getInt(4));
+            candidate.setAvatar(cursor.getBlob(5));
+            candidate.setIsActive(cursor.getInt(6));
         }
         cursor.close();
         db.close();
@@ -117,13 +126,21 @@ public class CandidateDAO extends DBManager {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         if (App.DoanVien_Tab_Current == App.DOANVIEN_TAB_CHO_DUYET) {
-            cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
-                    CANDIDATE_NAME + " LIKE ? AND WHERE " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
-                    new String[]{"%" + name + "%", String.valueOf(App.NO_ACTIVE)}, null, null, null, null);
-        } else if (App.DoanVien_Tab_Current == App.DOANVIEN_TAB_ALL) {
-            cursor = db.query(TABLE_CANDIDATE, new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
-                    CANDIDATE_NAME + " LIKE ? COLLATE NOCASE",
-                    new String[]{"%" + name + "%"}, null, null, null, null);
+            cursor = db.query(
+                    TABLE_CANDIDATE,
+                    new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
+                    CANDIDATE_NAME + " LIKE ? AND " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
+                    new String[]{"%" + name + "%", String.valueOf(App.NO_ACTIVE)},
+                    null, null, null, null
+            );
+        } else {
+            cursor = db.query(
+                    TABLE_CANDIDATE,
+                    new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
+                    CANDIDATE_NAME + " LIKE ? AND " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
+                    new String[]{"%" + name + "%", String.valueOf(App.ACTIVE)},
+                    null, null, null, null
+            );
         }
         if (cursor.moveToFirst()) {
             do {
@@ -131,9 +148,10 @@ public class CandidateDAO extends DBManager {
                 candidate.setId(cursor.getInt(0));
                 candidate.setName(cursor.getString(1));
                 candidate.setCMND(cursor.getString(2));
-                candidate.setGender(cursor.getInt(3));
-                candidate.setAvatar(cursor.getBlob(4));
-                candidate.setIsActive(cursor.getInt(5));
+                candidate.setSDT(cursor.getString(3));
+                candidate.setGender(cursor.getInt(4));
+                candidate.setAvatar(cursor.getBlob(5));
+                candidate.setIsActive(cursor.getInt(6));
                 //Kiểm tra nạp đoàn phí/Hội phí hay chưa?
                 if (doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current)) {
                     candidate.setDoanPhi(true);
@@ -153,11 +171,6 @@ public class CandidateDAO extends DBManager {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CANDIDATE_IS_ACTIVE, App.ACTIVE);
-        db.update(
-                TABLE_CANDIDATE,
-                values,
-                CANDIDATE_ID + "=?",
-                new String[]{String.valueOf(candidate.getId())
-                });
+        db.update(TABLE_CANDIDATE, values, CANDIDATE_ID + "=?", new String[]{String.valueOf(candidate.getId())});
     }
 }
