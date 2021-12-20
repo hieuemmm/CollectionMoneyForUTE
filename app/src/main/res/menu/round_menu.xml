@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/Roundchecked"
+        android:title="Đặt làm đợt hiện tại"/>
+    <item
+        android:id="@+id/Roundedit"
+        android:title="Sửa đợt"/>
+    <item
+        android:id="@+id/Rounddelete"
+        android:title="Xóa đợt"
+        />
+</menu>

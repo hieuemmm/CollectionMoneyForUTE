@@ -36,6 +36,7 @@ public class DBManager extends SQLiteOpenHelper {
     protected static final String MONEYROUND_ID ="id";
     protected static final String MONEYROUND_NAME ="name";
     protected static final String MONEYROUND_CREATE_TIME ="create_time";
+    protected static final String MONEYROUND_PRICE ="price";
     protected static final String MONEYROUND_IS_SHOW ="is_show";
     protected static final String MONEYROUND_TYPE ="type";
 
@@ -77,6 +78,7 @@ public class DBManager extends SQLiteOpenHelper {
                 MONEYROUND_ID +" INTEGER  primary key, "+
                 MONEYROUND_NAME + " TEXT, "+
                 MONEYROUND_CREATE_TIME + " TEXT, "+
+                MONEYROUND_PRICE + " INTEGER, "+
                 MONEYROUND_IS_SHOW + " INTEGER, "+
                 MONEYROUND_TYPE +" INTEGER)";
         db.execSQL(sqlQuery);

@@ -1,8 +1,6 @@
 package ntattuan.vvhieu.cuoikyltdd02;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -24,10 +22,9 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
-import ntattuan.vvhieu.cuoikyltdd02.MainFragment.DoanVienFragment;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 
-public class AddDoanVienActivity extends AppCompatActivity {
+public class AddCandidateActivity extends AppCompatActivity {
     private ImageView DoanVien_Add_Avatar, DoanVien_Add_ButtonCamera, DoanVien_Add_ButtonLiblary, Doanvien_Add_ButtonBack;
     private TextView Doanvien_Add_Name, Doanvien_Add_CMND, Doanvien_Add_SDT, Doanvien_Add_CMNDError, Doanvien_Add_SDTError;
     private RadioButton Doanvien_Add_GenderNam;
@@ -39,7 +36,7 @@ public class AddDoanVienActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_doan_vien);
+        setContentView(R.layout.activity_add_candidate);
         candidateDAO = new CandidateDAO(this);
         DoanVien_Add_Avatar = (ImageView) findViewById(R.id.DoanVien_Add_Avatar);
         DoanVien_Add_ButtonCamera = (ImageView) findViewById(R.id.DoanVien_Add_ButtonCamera);
@@ -165,6 +162,7 @@ public class AddDoanVienActivity extends AppCompatActivity {
                     );
                     candidateDAO.addCandidate(candidate);
                     setResult(Activity.RESULT_CANCELED, new Intent());
+                    App.ToastShow(getBaseContext(),"Thêm thành công");
                     finish();
                 } else {
                     Doanvien_Add_CMND.requestFocus();
@@ -205,11 +203,5 @@ public class AddDoanVienActivity extends AppCompatActivity {
     private void SelectImageCamera() {
         Intent gallery = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(gallery, App.REQUEST_CODE_CAMERA);
-    }
-
-    private int getGender_FormDoanVien_Add() {
-        if (Doanvien_Add_GenderNam.isChecked())
-            return App.GENDER_NAM;
-        return App.GENDER_NU;
     }
 }

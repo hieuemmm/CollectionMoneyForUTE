@@ -15,14 +15,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.ByteArrayOutputStream;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 import ntattuan.vvhieu.cuoikyltdd02.Model.User;
 
 public class App {
     public static User UserLogined = null;
     public static int DoanVien_Tab_Current = 0;
+    public static int Round_Tab_Current = 0;
     public static int DotNopTienDoanPhi_Current = 1;
     public static int DotNopTienHoiPhi_Current = 2;
     public static final int ROLE_ADMIN = 1;
@@ -32,6 +36,8 @@ public class App {
     public static final int GENDER_NU = 0;
     public static final int ACTIVE = 1;
     public static final int NO_ACTIVE = 0;
+    public static final int SHOW = 1;
+    public static final int NO_SHOW = 0;
     public static final int REQUEST_CODE_CAMERA = 123;
     public static final int REQUEST_CODE_FOLDER = 456;
     public static final int LAUNCH_SECOND_ACTIVITY = 321;
@@ -39,6 +45,10 @@ public class App {
     public static final int DOANVIEN_TAB_DOAN_PHI = 1;
     public static final int DOANVIEN_TAB_HOI_PHI = 2;
     public static final int DOANVIEN_TAB_CHO_DUYET = 3;
+    public static final int TYPE_ROUND_DOAN_PHI = 0;
+    public static final int TYPE_ROUND_HOI_PHI = 1;
+    public static final int ROUND_TAB_DOAN_PHI = TYPE_ROUND_DOAN_PHI;
+    public static final int ROUND_TAB_HOI_PHI = TYPE_ROUND_HOI_PHI;
 
     public static byte[] DrawableToByteArray(int drawableID, Context context){
         Drawable drawable =  context.getResources().getDrawable(drawableID);
@@ -92,5 +102,12 @@ public class App {
                 st+=" ";   // cộng thêm một khoảng trắng
         }
         return st;
+    }
+    public static String CurrencytoVN(int currency){
+        //đơn vị VN
+        Locale vn = new Locale("vi", "VN");
+        Currency dollars = Currency.getInstance(vn);
+        NumberFormat vnFormat = NumberFormat.getCurrencyInstance(vn);
+        return String.valueOf(vnFormat.format(currency));
     }
 }

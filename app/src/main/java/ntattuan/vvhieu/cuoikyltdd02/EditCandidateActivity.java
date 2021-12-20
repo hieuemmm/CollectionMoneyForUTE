@@ -24,7 +24,7 @@ import java.io.InputStream;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 
-public class EditDoanVienActivity extends AppCompatActivity {
+public class EditCandidateActivity extends AppCompatActivity {
     private ImageView DoanVien_Edit_Avatar, DoanVien_Edit_ButtonCamera, DoanVien_Edit_ButtonLiblary, doanvien_ButtonBack;
     private TextView DoanVien_Edit_ID,DoanVien_Edit_Name, DoanVien_Edit_CMND, DoanVien_Edit_SDT, DoanVien_Edit_CMNDError, DoanVien_Edit_SDTError;
     private boolean FromErrorCMND = true;
@@ -35,7 +35,7 @@ public class EditDoanVienActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_doan_vien);
+        setContentView(R.layout.activity_edit_candidate);
         candidateDAO = new CandidateDAO(this);
         DoanVien_Edit_Avatar = (ImageView) findViewById(R.id.DoanVien_Edit_Avatar);
         DoanVien_Edit_ButtonCamera = (ImageView) findViewById(R.id.DoanVien_Edit_ButtonCamera);

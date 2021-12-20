@@ -22,14 +22,14 @@ import java.util.List;
 import ntattuan.vvhieu.cuoikyltdd02.App;
 import ntattuan.vvhieu.cuoikyltdd02.Data.DoneMoneyDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
-import ntattuan.vvhieu.cuoikyltdd02.EditDoanVienActivity;
-import ntattuan.vvhieu.cuoikyltdd02.LoginActivity;
-import ntattuan.vvhieu.cuoikyltdd02.MainActivity;
+import ntattuan.vvhieu.cuoikyltdd02.EditCandidateActivity;
+import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.DoneMoney;
 import ntattuan.vvhieu.cuoikyltdd02.R;
 
-public class DoanVienAdapter extends BaseAdapter {
+public class CandidateAdapter extends BaseAdapter {
+    private OnChangeAdapter onChangeAdapter;
     public List<Candidate> listCandidate;
     private ViewHolder holder;
     private DoneMoneyDAO doneMoneyDAO;
@@ -38,19 +38,25 @@ public class DoanVienAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public DoanVienAdapter(Context aContext) {
-        this.context = aContext;
-        layoutInflater = LayoutInflater.from(aContext);
+    // START CustomEvent
+    public void setOnChangeAdapter(OnChangeAdapter eventListener)
+    {
+        onChangeAdapter = eventListener;
     }
-
-    public DoanVienAdapter(Context aContext, List<Candidate> listCandidate) {
+    public void Change()
+    {
+        if(onChangeAdapter != null)
+        {
+            onChangeAdapter.onChange();
+        }
+    }
+    //END CustomEvent
+    public CandidateAdapter(Context aContext) {
         this.context = aContext;
-        setListCandidate(listCandidate);
         layoutInflater = LayoutInflater.from(aContext);
         doneMoneyDAO = new DoneMoneyDAO(this.context);
         candidateDAO = new CandidateDAO(this.context);
     }
-
     public void setListCandidate(List<Candidate> listCandidate) {
         this.listCandidate = Candidate.Sort(listCandidate);
     }
@@ -73,7 +79,7 @@ public class DoanVienAdapter extends BaseAdapter {
     @SuppressLint("ResourceAsColor")
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_doanvien, null);
+            convertView = layoutInflater.inflate(R.layout.item_candidate, null);
             holder = new ViewHolder();
             holder.candidate_avatar = (ImageView) convertView.findViewById(R.id.candidate_avatar);
             holder.candidate_luachon = (ImageView) convertView.findViewById(R.id.candidate_luachon);
@@ -99,9 +105,8 @@ public class DoanVienAdapter extends BaseAdapter {
         holder.candidate_luachon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 PopupMenu popup = new PopupMenu(v.getContext(), v.findViewById(R.id.candidate_luachon));
-                popup.getMenuInflater().inflate(R.menu.clipboard_popup, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.candidate_menu, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -111,7 +116,7 @@ public class DoanVienAdapter extends BaseAdapter {
                                 App.ToastShow(v.getContext().getApplicationContext(), candidate.getName());
                                 break;
                             case R.id.edit:
-                                Intent intent = new Intent(context, EditDoanVienActivity.class);
+                                Intent intent = new Intent(context, EditCandidateActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putInt("CandidateID", candidate.getId());
                                 intent.putExtra("CandidateCurrent", bundle);
@@ -126,7 +131,7 @@ public class DoanVienAdapter extends BaseAdapter {
                                         public void onClick(DialogInterface dialog, int which) {
                                             candidateDAO.deleteCandidate(candidate);
                                             listCandidate.remove(candidate);
-                                            hiddenCandidateItem();
+                                            Change();//Lan tỏa sự kiện Change ra bên ngoài
                                             App.ToastShow(v.getContext().getApplicationContext(), "Xóa thành công?");
                                             dialog.dismiss();
                                         }
@@ -317,18 +322,6 @@ public class DoanVienAdapter extends BaseAdapter {
                 holder.Candidate_Button_HoiPhi.setBackground(this.context.getDrawable(R.drawable.btn_red_border));
             }
         }
-    }
-
-    private void hiddenCandidateItem() {
-        holder.candidate_avatar.setVisibility(View.GONE);
-        holder.candidate_luachon.setVisibility(View.GONE);
-        holder.candidate_Is_Active.setVisibility(View.GONE);
-        holder.candidate_Name.setVisibility(View.GONE);
-        holder.candidate_CMND.setVisibility(View.GONE);
-        holder.candidate_ID.setVisibility(View.GONE);
-        holder.Candidate_Button_DoanPhi.setVisibility(View.GONE);
-        holder.Candidate_Button_HoiPhi.setVisibility(View.GONE);
-        holder.Candidate_Button_DuyetNgay.setVisibility(View.GONE);
     }
 
     static class ViewHolder {

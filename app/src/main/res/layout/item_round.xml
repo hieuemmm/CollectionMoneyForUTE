@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/Round_menu"
+        android:layout_width="34sp"
+        android:layout_height="34sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/menu_dost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/Round_STT"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="1"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/round_STTdost"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:text="."
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/Round_STT"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Round_Name"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:text="Đoàn phí số 1"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/Round_menu"
+        app:layout_constraintStart_toStartOf="@+id/Round_STT"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Round_CreateTime"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:text="Ngày tạo: 12/12/2021 19:27"
+        android:textColor="#333"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/Round_menu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Round_STT"
+        app:layout_constraintTop_toBottomOf="@+id/Round_Name" />
+
+    <TextView
+        android:id="@+id/Round_Price"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="left"
+        android:text="Số tiền cần nộp : 60.000 VND"
+        android:textColor="#0288d1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Round_CreateTime"
+        tools:ignore="DuplicateIds" />
+
+    <ImageView
+        android:id="@+id/candidate_Is_Active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <RadioButton
+        android:id="@+id/Round_IsShowRadio"
+        android:layout_width="92dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:text="Mặc định"
+        app:layout_constraintStart_toStartOf="@+id/Round_STT"
+        app:layout_constraintTop_toBottomOf="@+id/Round_CreateTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

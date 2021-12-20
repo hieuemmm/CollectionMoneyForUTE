@@ -63,7 +63,6 @@ public class CandidateDAO extends DBManager {
     public List<Candidate> getAllCandidate() {
         List<Candidate> listCandidate = new ArrayList<Candidate>();
         String selectQuery = "SELECT  * FROM " + TABLE_CANDIDATE;
-        ;
         if (App.DoanVien_Tab_Current == App.DOANVIEN_TAB_CHO_DUYET) {
             // Chọn candidate chưa active == 0
             selectQuery = "SELECT  * FROM " + TABLE_CANDIDATE + " WHERE " + CANDIDATE_IS_ACTIVE + " = " + App.NO_ACTIVE;

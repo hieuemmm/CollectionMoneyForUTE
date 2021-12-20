@@ -1,34 +1,36 @@
 package ntattuan.vvhieu.cuoikyltdd02.Model;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import ntattuan.vvhieu.cuoikyltdd02.App;
+
 public class Round {
     private int Id;
     private String Name;
     private String CreateTime;
+    private int price;
     private int IsShow;
     private int Type; // 1 là đoàn phí, 0 là hội phí
 
     public Round() {
     }
 
-    public Round(String name, String createTime, int isShow) {
+    public Round(String name, String createTime, int price, int isShow, int type) {
         Name = name;
         CreateTime = createTime;
-        IsShow = isShow;
-    }
-
-    public Round(int id, String name, String createTime, int isShow) {
-        Id = id;
-        Name = name;
-        CreateTime = createTime;
-        IsShow = isShow;
-    }
-
-    public Round(int id, String name, String createTime, int isShow, int type) {
-        Id = id;
-        Name = name;
-        CreateTime = createTime;
+        this.price = price;
         IsShow = isShow;
         Type = type;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getName() {
@@ -47,19 +49,20 @@ public class Round {
         CreateTime = createTime;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public int getIsShow() {
         return IsShow;
     }
 
     public void setIsShow(int isShow) {
         IsShow = isShow;
-    }
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
     }
 
     public int getType() {

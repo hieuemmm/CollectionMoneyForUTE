@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CuoiKyLTDD02" >
         <activity
-            android:name=".EditDoanVienActivity"
+            android:name=".EditCandidateActivity"
             android:exported="false" />
         <activity
-            android:name=".AddDoanVienActivity"
+            android:name=".AddCandidateActivity"
             android:exported="false" />
         <activity android:name=".MainActivity" />
         <activity
