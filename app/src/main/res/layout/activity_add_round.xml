@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/DoanVien_Add_bar"
+        android:id="@+id/Round_Add_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#2082FF"
@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
-            android:id="@+id/Doanvien_Add_ButtonBack"
+            android:id="@+id/Round_Add_ButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -21,12 +21,11 @@
             android:background="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
-            android:id="@+id/DoanVien_Add_Tittle"
+            android:id="@+id/Round_Add_Tittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm đoàn viên"
+            android:text="Thêm đợt thu tiền"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,42 +40,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DoanVien_Add_bar">
+        app:layout_constraintTop_toBottomOf="@+id/Round_Add_bar">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/DoanVien_Add_ScrollBar"
+            android:id="@+id/Round_Add_ScrollBar"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <ImageView
-                android:id="@+id/DoanVien_Add_Avatar"
-                android:layout_width="144dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/candidate_avatar" />
-            <ImageView
-                android:id="@+id/DoanVien_Add_ButtonCamera"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_baseline_camera_alt_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <ImageView
-                android:id="@+id/DoanVien_Add_ButtonLiblary"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_baseline_photo_library_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Add_ButtonCamera" />
             <EditText
-                android:id="@+id/Doanvien_Add_Name"
+                android:id="@+id/Round_Add_Name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -88,18 +59,17 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/text_box"
                 android:ems="10"
-                android:hint="Nguyễn Văn A"
+                android:hint="Đợt Đoàn phí/Hội phí 220"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:paddingLeft="15dp"
                 android:text=""
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/DoanVien_Add_Avatar"
-                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Add_NameTitle" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Round_Add_NameTitle" />
 
             <EditText
-                android:id="@+id/Doanvien_Add_SDT"
+                android:id="@+id/Round_Add_Price"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -111,102 +81,71 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/text_box"
                 android:ems="10"
-                android:hint="0989642099"
+                android:hint="60000"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:paddingLeft="15dp"
-                android:text=""
+                android:text="0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_SDTTitle" />
-
-            <EditText
-                android:id="@+id/Doanvien_Add_CMND"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/text_box"
-                android:ems="10"
-                android:hint="231235249"
-                android:inputType="number"
-                android:minHeight="48dp"
-                android:paddingLeft="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Add_CMNDTiltle" />
+                app:layout_constraintTop_toBottomOf="@+id/Round_Add_PriceTiltle" />
 
             <TextView
-                android:id="@+id/DoanVien_Add_GenderTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Giới Tính :"
-                app:layout_constraintBottom_toTopOf="@+id/DoanVien_Add_ButtonAdd"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_SDT" />
-
-            <TextView
-                android:id="@+id/Doanvien_Add_SDTTitle"
+                android:id="@+id/Round_Add_LoaiTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Số điện thoai (Nếu có):"
+                android:text="Loại:"
+                app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_CMND" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/DoanVien_Add_CMNDTiltle"
+                android:id="@+id/Round_Add_PriceTiltle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="CMND :"
+                android:text="Số tiền:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_Name" />
+                app:layout_constraintTop_toBottomOf="@+id/Round_Add_Name" />
 
             <TextView
-                android:id="@+id/Doanvien_Add_CMNDError"
+                android:id="@+id/Round_Add_PriceShow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="0 VNĐ"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/Round_Add_PriceTiltle"
+                app:layout_constraintTop_toBottomOf="@+id/Round_Add_Name" />
+
+            <TextView
+                android:id="@+id/Round_Add_NameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Tên đợt:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+            <TextView
+                android:id="@+id/Round_Add_NameError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="0/9 kí tự "
+                android:text="[Tên đợt đã tồn tại]"
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_Name" />
-
-            <TextView
-                android:id="@+id/Doanvien_Add_SDTError"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="0/10 kí tự"
-                android:textColor="@color/red"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_CMND" />
-
-            <TextView
-                android:id="@+id/DoanVien_Add_NameTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Tên đoàn viên: "
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Add_Avatar" />
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/DoanVien_Add_ButtonAdd"
+                android:id="@+id/Round_Add_ButtonAdd"
                 android:layout_width="0dp"
                 android:layout_height="37dp"
                 android:layout_alignParentEnd="true"
@@ -215,46 +154,56 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_button_long"
-                android:text="Thêm đoàn viên"
+                android:text="Thêm đợt "
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/Round_Add_Price"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@+id/DoanVien_Add_GenderTitle"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_SDT">
+                app:layout_constraintStart_toEndOf="@+id/Round_Add_LoaiTitle"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <RadioButton
-                    android:id="@+id/DoanVien_Add_GenderNam"
+                    android:id="@+id/Round_Add_DoanPhi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:checked="true"
-                    android:text="Nam"
-                    app:layout_constraintBottom_toTopOf="@+id/DoanVien_Add_ButtonAdd"
-                    app:layout_constraintStart_toEndOf="@+id/DoanVien_Add_LoaiTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_SDT"
+                    android:text="Đoàn Phí"
+                    app:layout_constraintBottom_toTopOf="@+id/Round_Add_ButtonAdd"
+                    app:layout_constraintStart_toEndOf="@+id/Round_Add_LoaiTitle"
                     tools:ignore="MissingConstraints" />
 
                 <RadioButton
-                    android:id="@+id/DoanVien_Add_GenderNu"
+                    android:id="@+id/Round_Add_HoiPhi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Nữ"
-                    app:layout_constraintBottom_toTopOf="@+id/DoanVien_Add_ButtonAdd"
-                    app:layout_constraintStart_toEndOf="@+id/DoanVien_Add_DoanPhi"
-                    app:layout_constraintTop_toBottomOf="@+id/Doanvien_Add_SDT"
+                    android:text="Hội Phí"
+                    app:layout_constraintBottom_toTopOf="@+id/Round_Add_ButtonAdd"
+                    app:layout_constraintStart_toEndOf="@+id/Round_Add_DoanPhi"
                     tools:ignore="MissingConstraints" />
             </RadioGroup>
+
+            <ImageView
+                android:id="@+id/Round_Add_NameHint_Paste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Round_Add_Name"
+                app:layout_constraintEnd_toEndOf="@+id/Round_Add_Name"
+                app:layout_constraintTop_toTopOf="@+id/Round_Add_Name"
+                app:srcCompat="@drawable/ic_baseline_content_paste_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

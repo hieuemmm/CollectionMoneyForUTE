@@ -71,10 +71,11 @@
     <TextView
         android:id="@+id/Round_Price"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
         android:gravity="left"
-        android:text="Số tiền cần nộp : 60.000 VND"
+        android:text="Số tiền : 60.000 VND"
         android:textColor="#0288d1"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -83,19 +84,12 @@
         tools:ignore="DuplicateIds" />
 
     <ImageView
-        android:id="@+id/candidate_Is_Active"
+        android:id="@+id/Round_IsShow"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="106dp" />
-
-    <RadioButton
-        android:id="@+id/Round_IsShowRadio"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="40dp"
-        android:text="Mặc định"
-        app:layout_constraintStart_toStartOf="@+id/Round_STT"
-        app:layout_constraintTop_toBottomOf="@+id/Round_CreateTime" />
+        android:layout_height="103dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/round_line_show" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

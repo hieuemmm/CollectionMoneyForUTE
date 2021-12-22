@@ -71,7 +71,6 @@ public class CandidateFragment extends Fragment {
             LoadListView_DoanVien();
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_candidate, container, false);

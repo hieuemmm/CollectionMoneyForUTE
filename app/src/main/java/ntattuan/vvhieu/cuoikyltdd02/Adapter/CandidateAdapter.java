@@ -132,7 +132,7 @@ public class CandidateAdapter extends BaseAdapter {
                                             candidateDAO.deleteCandidate(candidate);
                                             listCandidate.remove(candidate);
                                             Change();//Lan tỏa sự kiện Change ra bên ngoài
-                                            App.ToastShow(v.getContext().getApplicationContext(), "Xóa thành công?");
+                                            App.ToastShow(v.getContext().getApplicationContext(), "Xóa thành công");
                                             dialog.dismiss();
                                         }
                                     });

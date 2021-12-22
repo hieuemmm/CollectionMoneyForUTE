@@ -1,7 +1,11 @@
 package ntattuan.vvhieu.cuoikyltdd02.MainFragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -19,7 +23,10 @@ import java.util.List;
 
 import ntattuan.vvhieu.cuoikyltdd02.Adapter.CandidateAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Adapter.RoundAdapter;
+import ntattuan.vvhieu.cuoikyltdd02.AddCandidateActivity;
+import ntattuan.vvhieu.cuoikyltdd02.AddRoundActivity;
 import ntattuan.vvhieu.cuoikyltdd02.App;
+import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Data.RoundDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
@@ -37,8 +44,7 @@ public class RoundFragment extends Fragment {
     private ListView Round_listview;
     private RoundDAO roundDAO;
     private RoundAdapter roundAdapter;
-
-    //private FragmentActivity myfragmentActivity = this.getActivity();
+;
     public RoundFragment() {
     }
 
@@ -59,7 +65,14 @@ public class RoundFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    //Khi một Intent Finish và gửi về kết quả
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            LoadListView_Round();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -68,7 +81,7 @@ public class RoundFragment extends Fragment {
         Round_ButtonAdd = (ImageView) view.findViewById(R.id.Round_ButtonAdd);
         Round_SearchClose = (ImageView) view.findViewById(R.id.Round_SearchClose);
         Round_TabLayout = (TabLayout) view.findViewById(R.id.Round_TabLayout);
-        Round_listview = (ListView) view.findViewById(R.id.doanvien_listview);
+        Round_listview = (ListView) view.findViewById(R.id.Round_listview);
         roundDAO = new RoundDAO(this.getActivity());
 
         roundAdapter = new RoundAdapter(this.getActivity());
@@ -99,13 +112,26 @@ public class RoundFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+        Round_ButtonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddRoundActivity.class);
+                startActivityForResult(intent, App.LAUNCH_SECOND_ACTIVITY);
+            }
+        });
+        roundAdapter.setOnChangeAdapter(new OnChangeAdapter() {
+            @Override
+            public void onChange() {
+                LoadListView_Round();
+            }
+        });
         return view;
     }
 
     public void LoadListView_Round() {
         List<Round> rounds = roundDAO.getAllRound();
-//        roundAdapter.setListRound(rounds);
-//        Round_listview.setAdapter(roundAdapter);
+        roundAdapter.setListRound(rounds);
+        Round_listview.setAdapter(roundAdapter);
     }
 
     private void TaoDuLieuMau() {
@@ -113,28 +139,28 @@ public class RoundFragment extends Fragment {
         Round roundDoanPhi1 = new Round(
                 "Đợt Đoàn Phí 1",
                 App.GetTimeCurrent(),
-                600000,
-                App.SHOW,
+                60000,
+                App.NO_SHOW,
                 App.TYPE_ROUND_DOAN_PHI
         );
         Round roundDoanPhi2 = new Round(
                 "Đợt Đoàn Phí 2",
                 App.GetTimeCurrent(),
-                600000,
+                70000,
                 App.SHOW,
                 App.TYPE_ROUND_DOAN_PHI
         );
         Round roundHoiPhi1 = new Round(
                 "Đợt Hội Phí 1",
                 App.GetTimeCurrent(),
-                600000,
-                App.SHOW,
+                60000,
+                App.NO_SHOW,
                 App.TYPE_ROUND_HOI_PHI
         );
         Round roundHoiPhi2 = new Round(
-                "Đợt Hội Phí 1",
+                "Đợt Hội Phí 2",
                 App.GetTimeCurrent(),
-                600000,
+                80000,
                 App.SHOW,
                 App.TYPE_ROUND_HOI_PHI
         );
@@ -148,4 +174,5 @@ public class RoundFragment extends Fragment {
             }
         }
     }
+
 }

@@ -104,10 +104,10 @@ public class App {
         return st;
     }
     public static String CurrencytoVN(int currency){
-        //đơn vị VN
         Locale vn = new Locale("vi", "VN");
-        Currency dollars = Currency.getInstance(vn);
         NumberFormat vnFormat = NumberFormat.getCurrencyInstance(vn);
-        return String.valueOf(vnFormat.format(currency));
+        String VND = vnFormat.format(currency);
+        VND = VND.replace("₫","VNĐ");
+        return VND;
     }
 }

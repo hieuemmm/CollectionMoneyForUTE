@@ -47,7 +47,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         Doanvien_Add_CMNDError = (TextView) findViewById(R.id.Doanvien_Add_CMNDError);
         Doanvien_Add_SDT = (TextView) findViewById(R.id.Doanvien_Add_SDT);
         Doanvien_Add_SDTError = (TextView) findViewById(R.id.Doanvien_Add_SDTError);
-        Doanvien_Add_GenderNam = (RadioButton) findViewById(R.id.Doanvien_Add_GenderNam);
+        Doanvien_Add_GenderNam = (RadioButton) findViewById(R.id.DoanVien_Add_GenderNam);
         DoanVien_Add_ButtonAdd = (Button) findViewById(R.id.DoanVien_Add_ButtonAdd);
 
         //Bắt sự kiện

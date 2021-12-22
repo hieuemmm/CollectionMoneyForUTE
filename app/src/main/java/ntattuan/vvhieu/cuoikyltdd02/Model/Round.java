@@ -17,6 +17,12 @@ public class Round {
     public Round() {
     }
 
+    public Round(int id, String name, int price) {
+        Id = id;
+        Name = name;
+        this.price = price;
+    }
+
     public Round(String name, String createTime, int price, int isShow, int type) {
         Name = name;
         CreateTime = createTime;
