@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/doanvien_Edit_bar"
+        android:id="@+id/DoanVien_Edit_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#2082FF"
@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
-            android:id="@+id/Doanvien_Edit_ButtonBack"
+            android:id="@+id/DoanVien_Edit_ButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doanvien_Edit_bar">
+        app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_bar">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/DoanVien_Edit_ScrollBar"
             android:layout_width="fill_parent"
@@ -64,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_ButtonCamera" />
             <EditText
-                android:id="@+id/Doanvien_Edit_Name"
+                android:id="@+id/DoanVien_Edit_Name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -84,10 +84,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/DoanVien_Edit_Avatar"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_NameTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_NameTitle" />
 
+            <ImageView
+                android:id="@+id/DoanVien_Edit_ReloadButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/DoanVien_Edit_IDTittle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_baseline_settings_backup_restore_24" />
             <EditText
-                android:id="@+id/Doanvien_Edit_SDT"
+                android:id="@+id/DoanVien_Edit_SDT"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -107,10 +116,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_SDTTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_SDTTitle" />
 
             <EditText
-                android:id="@+id/Doanvien_Edit_CMND"
+                android:id="@+id/DoanVien_Edit_CMND"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -129,80 +138,80 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_CMNDTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_CMNDTitle" />
 
             <TextView
-                android:id="@+id/doanvien_Edit_GioiTinhTitle"
+                android:id="@+id/DoanVien_Edit_GioiTinhTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Giới Tính :"
                 app:layout_constraintBottom_toTopOf="@+id/DoanVien_Edit_ButtonEdit"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_SDT" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_SDT" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_SDTTitle"
+                android:id="@+id/DoanVien_Edit_SDTTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Số điện thoại (Nếu có):"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_CMND" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_CMND" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_CMNDTitle"
+                android:id="@+id/DoanVien_Edit_CMNDTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="CMND :"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_Name" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_Name" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_CMNDError"
+                android:id="@+id/DoanVien_Edit_CMNDError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_Name" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_Name" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_SDTError"
+                android:id="@+id/DoanVien_Edit_SDTError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_CMND" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_CMND" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_NameTitle"
+                android:id="@+id/DoanVien_Edit_NameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Tên đoàn viên: "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_ID" />
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_ID" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_ID"
+                android:id="@+id/DoanVien_Edit_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="1"
-                app:layout_constraintStart_toEndOf="@+id/Doanvien_Edit_IDTittle"
+                app:layout_constraintStart_toEndOf="@+id/DoanVien_Edit_IDTittle"
                 app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_Avatar" />
 
             <TextView
-                android:id="@+id/Doanvien_Edit_IDTittle"
+                android:id="@+id/DoanVien_Edit_IDTittle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -236,32 +245,34 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@+id/doanvien_Edit_GioiTinhTitle"
-                app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_SDT">
+                app:layout_constraintStart_toEndOf="@+id/DoanVien_Edit_GioiTinhTitle"
+                app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_SDT">
 
                 <RadioButton
-                    android:id="@+id/Doanvien_Edit_GenderNam"
+                    android:id="@+id/DoanVien_Edit_GenderNam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:checked="true"
                     android:text="Nam"
                     app:layout_constraintBottom_toTopOf="@+id/DoanVien_Edit_ButtonEdit"
-                    app:layout_constraintStart_toEndOf="@+id/doanvien_Edit_GioiTinhTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_SDT"
+                    app:layout_constraintStart_toEndOf="@+id/DoanVien_Edit_GioiTinhTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_SDT"
                     tools:ignore="MissingConstraints" />
 
                 <RadioButton
-                    android:id="@+id/Doanvien_Edit_GenderNu"
+                    android:id="@+id/DoanVien_Edit_GenderNu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="Nữ"
                     app:layout_constraintBottom_toTopOf="@+id/DoanVien_Edit_ButtonEdit"
-                    app:layout_constraintStart_toEndOf="@+id/Doanvien_Edit_GenderNam"
-                    app:layout_constraintTop_toBottomOf="@+id/Doanvien_Edit_SDT"
+                    app:layout_constraintStart_toEndOf="@+id/DoanVien_Edit_GenderNam"
+                    app:layout_constraintTop_toBottomOf="@+id/DoanVien_Edit_SDT"
                     tools:ignore="MissingConstraints" />
             </RadioGroup>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

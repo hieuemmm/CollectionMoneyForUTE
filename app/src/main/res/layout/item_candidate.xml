@@ -11,10 +11,10 @@
         android:layout_height="90sp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/candidate_avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        app:srcCompat="@mipmap/candidate_avatar"/>
 
     <ImageView
         android:id="@+id/candidate_luachon"

@@ -28,8 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         loginUsername = (TextView) findViewById(R.id.doanvien_textSearch);
         loginPassWord = (TextView) findViewById(R.id.loginPassWord);
         loginButton = (Button) findViewById(R.id.Candidate_Button_DoanPhi);
-
-
+        App.getRoundCurrent(getBaseContext());
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

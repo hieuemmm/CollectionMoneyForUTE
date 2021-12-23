@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import ntattuan.vvhieu.cuoikyltdd02.Adapter.RoundAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Data.RoundDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
@@ -139,8 +140,8 @@ public class EditRoundActivity extends AppCompatActivity {
                             );
                             if (!roundDAO.CheckRoundExits(round.getName(), roundCurrent.getName())){
                                 roundDAO.UpdateRound(round);
-                                setResult(Activity.RESULT_CANCELED, new Intent());
                                 App.ToastShow(getBaseContext(), "Sửa đợt thành công");
+                                RoundAdapter.Change();
                                 finish();
                             }else{
                                 Round_Edit_Name.requestFocus();

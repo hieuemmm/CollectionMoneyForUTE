@@ -82,6 +82,7 @@ public class RoundDAO extends DBManager {
         values.put(MONEYROUND_PRICE, round.getPrice());
         db.update(TABLE_MONEYROUND, values, MONEYROUND_ID + "=?", new String[]{String.valueOf(round.getId())});
     }
+
     // Select ALL
     public List<Round> getAllRound() {
         List<Round> listRound = new ArrayList<Round>();
@@ -116,6 +117,27 @@ public class RoundDAO extends DBManager {
         Cursor cursor = db.query(TABLE_MONEYROUND, new String[]{MONEYROUND_ID, MONEYROUND_NAME, MONEYROUND_CREATE_TIME, MONEYROUND_PRICE, MONEYROUND_IS_SHOW, MONEYROUND_TYPE},
                 MONEYROUND_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
+        Round round = new Round();
+        if (cursor.moveToFirst()) {
+            round.setId(cursor.getInt(0));
+            round.setName(cursor.getString(1));
+            round.setCreateTime(cursor.getString(2));
+            round.setPrice(cursor.getInt(3));
+            round.setIsShow(cursor.getInt(4));
+            round.setType(cursor.getInt(5));
+        }
+        cursor.close();
+        db.close();
+        return round;
+    }
+
+    //select Round_ID_isShow()
+    public Round getRound_ID_isShow(int type) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor;
+        cursor = db.query(TABLE_MONEYROUND, new String[]{MONEYROUND_ID, MONEYROUND_NAME, MONEYROUND_CREATE_TIME, MONEYROUND_PRICE, MONEYROUND_IS_SHOW, MONEYROUND_TYPE},
+                MONEYROUND_TYPE + "=? AND "+ MONEYROUND_IS_SHOW +"= ?",
+                new String[]{String.valueOf(type),String.valueOf(App.SHOW)}, null, null, null, null);
         Round round = new Round();
         if (cursor.moveToFirst()) {
             round.setId(cursor.getInt(0));

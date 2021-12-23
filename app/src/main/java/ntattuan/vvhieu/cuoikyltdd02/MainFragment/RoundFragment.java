@@ -29,6 +29,7 @@ import ntattuan.vvhieu.cuoikyltdd02.App;
 import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Data.RoundDAO;
+import ntattuan.vvhieu.cuoikyltdd02.EditRoundActivity;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
 import ntattuan.vvhieu.cuoikyltdd02.R;
@@ -65,14 +66,6 @@ public class RoundFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    //Khi một Intent Finish và gửi về kết quả
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_CANCELED) {
-            LoadListView_Round();
-        }
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -86,6 +79,7 @@ public class RoundFragment extends Fragment {
 
         roundAdapter = new RoundAdapter(this.getActivity());
         TaoDuLieuMau();
+        App.Round_Tab_Current = App.ROUND_TAB_DOAN_PHI;
         LoadListView_Round();
         Round_TabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -123,6 +117,16 @@ public class RoundFragment extends Fragment {
             @Override
             public void onChange() {
                 LoadListView_Round();
+                App.getRoundCurrent(getContext());
+            }
+
+            @Override
+            public void onEdit(int id) {
+                Intent intent = new Intent(getActivity(), EditRoundActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("RoundID", id);
+                intent.putExtra("RoundCurrent", bundle);
+                getActivity().startActivity(intent);
             }
         });
         return view;

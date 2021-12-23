@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 
+import ntattuan.vvhieu.cuoikyltdd02.Adapter.CandidateAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 
@@ -30,6 +31,7 @@ public class AddCandidateActivity extends AppCompatActivity {
     private RadioButton Doanvien_Add_GenderNam;
     private Button DoanVien_Add_ButtonAdd;
     private boolean FromErrorCMND = true;
+    private boolean FromErrorSDT = false;
     private CandidateDAO candidateDAO;
     private MainActivity mainActivity = new MainActivity();
 
@@ -85,21 +87,32 @@ public class AddCandidateActivity extends AppCompatActivity {
                 FromErrorCMND = true;
                 if (s.length() != 0) {
                     Doanvien_Add_CMNDError.setText(s.length() + "/9 kí tự");
-                    if (s.length() == 9) {
+                    if (s.length() == 9 || s.length() == 12) {
+                        Doanvien_Add_CMNDError.setText(s.length() + "/" + s.length() + " kí tự");
                         Doanvien_Add_CMNDError.setTextColor(Color.BLACK);
                         Doanvien_Add_CMND.setTextColor(Color.BLACK);
                         if (candidateDAO.CheckCandidateExits(s.toString())) {
-                            Doanvien_Add_CMNDError.setText("[ Bị trùng lặp ] " + s.length() + "/9 kí tự");
+                            Doanvien_Add_CMNDError.setText("[ Bị trùng lặp ] " + s.length() + "/" + s.length() + " kí tự");
                             Doanvien_Add_CMND.setTextColor(Color.RED);
                             Doanvien_Add_CMNDError.setTextColor(Color.RED);
                         } else {
                             FromErrorCMND = false;
-                            Doanvien_Add_SDT.requestFocus();
+                            if(s.length()==12){
+                                Doanvien_Add_SDT.requestFocus();
+                            }
                         }
+                    } else if (s.length() > 9) {
+                        Doanvien_Add_CMNDError.setText(s.length() + "/12 kí tự");
+                        Doanvien_Add_CMND.setTextColor(Color.RED);
+                        Doanvien_Add_CMNDError.setTextColor(Color.RED);
                     } else {
                         Doanvien_Add_CMND.setTextColor(Color.RED);
                         Doanvien_Add_CMNDError.setTextColor(Color.RED);
                     }
+                } else {
+                    Doanvien_Add_CMNDError.setText("");
+                    Doanvien_Add_CMND.setTextColor(Color.RED);
+                    Doanvien_Add_CMNDError.setTextColor(Color.RED);
                 }
             }
         });
@@ -115,20 +128,39 @@ public class AddCandidateActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                FromErrorSDT = true;
                 if (s.length() != 0) {
-                    Doanvien_Add_SDTError.setText(s.length() + "/10 kí tự");
-                    if (s.length() == 10 || s.length() == 11) {
-                        Doanvien_Add_SDTError.setTextColor(Color.BLACK);
-                        Doanvien_Add_SDT.setTextColor(Color.BLACK);
-                        if (true) {
-                            Doanvien_Add_SDTError.setText("[ Đã tồn tại ] " + s.length() + "/10 kí tự");
+                    if (App.CheckIsSDT(s.toString())) {
+                        Doanvien_Add_SDTError.setText(s.length() + "/10 kí tự");
+                        if (s.length() == 10 || s.length() == 11) {
+                            Doanvien_Add_SDTError.setText(s.length() + "/" + s.length() + " kí tự");
+                            Doanvien_Add_SDTError.setTextColor(Color.BLACK);
+                            Doanvien_Add_SDT.setTextColor(Color.BLACK);
+                            if (candidateDAO.CheckSDTExits(s.toString())) {
+                                Doanvien_Add_SDTError.setText("[ Đã tồn tại ] " + s.length() + "/" + s.length() + " kí tự");
+                                Doanvien_Add_SDTError.setTextColor(Color.RED);
+                                Doanvien_Add_SDT.setTextColor(Color.RED);
+                            } else {
+                                FromErrorSDT = false;
+                            }
+                        } else if (s.length() > 11) {
+                            Doanvien_Add_SDTError.setText(s.length() + "/11 kí tự");
+                            Doanvien_Add_SDTError.setTextColor(Color.RED);
                             Doanvien_Add_SDT.setTextColor(Color.RED);
+                        } else {
+                            Doanvien_Add_SDTError.setTextColor(Color.RED);
                             Doanvien_Add_SDT.setTextColor(Color.RED);
                         }
                     } else {
-                        Doanvien_Add_SDT.setTextColor(Color.RED);
+                        Doanvien_Add_SDTError.setText("[Không phải số điện thoại]");
+                        Doanvien_Add_SDTError.setTextColor(Color.RED);
                         Doanvien_Add_SDT.setTextColor(Color.RED);
                     }
+                } else {
+                    Doanvien_Add_SDTError.setText("");
+                    Doanvien_Add_SDTError.setTextColor(Color.BLACK);
+                    Doanvien_Add_SDT.setTextColor(Color.BLACK);
+                    FromErrorSDT = false;
                 }
             }
         });
@@ -149,21 +181,25 @@ public class AddCandidateActivity extends AppCompatActivity {
                 } else if (FromErrorCMND == false) {
                     //Đủ điển kiện thêm đoàn viên và không trùng CMND
                     String SDT = "";
-                    if (Doanvien_Add_SDT.getText().toString().replace(" ", "").length() == 10||Doanvien_Add_SDT.getText().toString().replace(" ", "").length() == 11) {
+                    if (Doanvien_Add_SDT.getText().toString().replace(" ", "").length() == 10 || Doanvien_Add_SDT.getText().toString().replace(" ", "").length() == 11) {
                         SDT = String.valueOf(Doanvien_Add_SDT.getText());
+                    } else if (Doanvien_Add_SDT.getText().toString().replace(" ", "").length() != 0) {
+                        Doanvien_Add_SDT.requestFocus();
                     }
-                    Candidate candidate = new Candidate(
-                            Doanvien_Add_Name.getText().toString(),
-                            Doanvien_Add_CMND.getText().toString(),
-                            SDT,
-                            Doanvien_Add_GenderNam.isChecked() ? App.GENDER_NAM : App.GENDER_NU,
-                            App.getImageBitmap(DoanVien_Add_Avatar),
-                            App.CheckIsAdministrator() ? App.ACTIVE : App.NO_ACTIVE
-                    );
-                    candidateDAO.addCandidate(candidate);
-                    setResult(Activity.RESULT_CANCELED, new Intent());
-                    App.ToastShow(getBaseContext(),"Thêm thành công");
-                    finish();
+                    if (!FromErrorSDT) {
+                        Candidate candidate = new Candidate(
+                                App.chuannHoaHoTen(Doanvien_Add_Name.getText().toString()),
+                                Doanvien_Add_CMND.getText().toString(),
+                                SDT,
+                                Doanvien_Add_GenderNam.isChecked() ? App.GENDER_NAM : App.GENDER_NU,
+                                App.getImageBitmap(DoanVien_Add_Avatar),
+                                App.CheckIsAdministrator() ? App.ACTIVE : App.NO_ACTIVE
+                        );
+                        candidateDAO.addCandidate(candidate);
+                        App.ToastShow(getBaseContext(), "Thêm thành công");
+                        CandidateAdapter.Change();
+                        finish();
+                    }
                 } else {
                     Doanvien_Add_CMND.requestFocus();
                 }

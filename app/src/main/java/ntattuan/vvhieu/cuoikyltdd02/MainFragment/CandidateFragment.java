@@ -1,10 +1,8 @@
 package ntattuan.vvhieu.cuoikyltdd02.MainFragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -63,14 +61,6 @@ public class CandidateFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    //Khi một Intent Finish và gửi về kết quả
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_CANCELED) {
-            LoadListView_DoanVien();
-        }
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_candidate, container, false);
@@ -82,6 +72,7 @@ public class CandidateFragment extends Fragment {
         candidateDAO = new CandidateDAO(this.getActivity());
         doanVienAdapter = new CandidateAdapter(this.getActivity());
         TaoDuLieuMau();
+        App.DoanVien_Tab_Current = App.DOANVIEN_TAB_ALL;
         LoadListView_DoanVien();
         //Tìm kiếm đoàn viên
         doanvien_textSearch.addTextChangedListener(new TextWatcher() {
@@ -152,6 +143,11 @@ public class CandidateFragment extends Fragment {
             public void onChange() {
                 LoadListView_DoanVien();
             }
+
+            @Override
+            public void onEdit(int id) {
+
+            }
         });
         return view;
     }
@@ -173,18 +169,22 @@ public class CandidateFragment extends Fragment {
         Candidate candidate1 = new Candidate(
                 "Hoài Bão",
                 "293847563",
-                "0983746155",
+                "0988722018",
                 App.GENDER_NAM,
-                App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()),
+                App.DrawableToByteArray(R.mipmap.candidate_avatar1, this.getActivity()),
                 App.ACTIVE
         );
-        Candidate candidate2 = new Candidate("Hà Minh Nguyệt", "293847564","0953746182", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()), App.NO_ACTIVE);
-        Candidate candidate3 = new Candidate("Huỳnh Trọng Khiêm", "293847565","0983746101", App.GENDER_NAM, App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()), App.ACTIVE);
-        Candidate candidate4 = new Candidate("Đào Thị Hoa", "293847566","0983746132", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate2 = new Candidate("Hà Minh Nguyệt", "293847564","0398503361", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar5, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate3 = new Candidate("Huỳnh Trọng Khiêm", "293847565","0989642099", App.GENDER_NAM, App.DrawableToByteArray(R.mipmap.candidate_avatar2, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate4 = new Candidate("Đào Thị Hoa", "293847566","0974447843", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar6, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate5 = new Candidate("Hứa Văn Quyết", "293847567","", App.GENDER_NAM, App.DrawableToByteArray(R.mipmap.candidate_avatar3, this.getActivity()), App.NO_ACTIVE);
+        Candidate candidate6 = new Candidate("Mai Anh", "293847568","", App.GENDER_NU, App.DrawableToByteArray(R.mipmap.candidate_avatar4, this.getActivity()), App.NO_ACTIVE);
         candidates.add(candidate1);
         candidates.add(candidate2);
         candidates.add(candidate3);
         candidates.add(candidate4);
+        candidates.add(candidate5);
+        candidates.add(candidate6);
         for (Candidate candidate : candidates) {
             if (!candidateDAO.CheckCandidateExits(candidate.getCMND())) {
                 candidateDAO.addCandidate(candidate);

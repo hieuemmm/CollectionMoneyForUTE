@@ -21,14 +21,18 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 
+import ntattuan.vvhieu.cuoikyltdd02.Data.RoundDAO;
+import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
 import ntattuan.vvhieu.cuoikyltdd02.Model.User;
 
 public class App {
     public static User UserLogined = null;
     public static int DoanVien_Tab_Current = 0;
     public static int Round_Tab_Current = 0;
-    public static int DotNopTienDoanPhi_Current = 1;
-    public static int DotNopTienHoiPhi_Current = 2;
+    public static int DotNopTienDoanPhi_Current = -1;
+    public static int DotNopTienHoiPhi_Current = -2;
+    public static int Price_DoanPhi_Current = 0;
+    public static int Price_HoiPhi_Current = 0;
     public static final int ROLE_ADMIN = 1;
     public static final int ROLE_BITHU = 0;
     public static final String STRING_NO_ROLE_ADMIN = "Bạn không có quyền Adminitartor.";
@@ -50,14 +54,15 @@ public class App {
     public static final int ROUND_TAB_DOAN_PHI = TYPE_ROUND_DOAN_PHI;
     public static final int ROUND_TAB_HOI_PHI = TYPE_ROUND_HOI_PHI;
 
-    public static byte[] DrawableToByteArray(int drawableID, Context context){
-        Drawable drawable =  context.getResources().getDrawable(drawableID);
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+    public static byte[] DrawableToByteArray(int drawableID, Context context) {
+        Drawable drawable = context.getResources().getDrawable(drawableID);
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytedata = stream.toByteArray();
         return bytedata;
     }
+
     public static byte[] getImageBitmap(ImageView img) {
         BitmapDrawable bitmapDrawable = (BitmapDrawable) img.getDrawable();
         Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -66,10 +71,12 @@ public class App {
         byte[] image = byteArrayOutputStream.toByteArray();
         return image;
     }
-    public static void ToastShow(Context context,String s){
+
+    public static void ToastShow(Context context, String s) {
         Toast toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
         toast.show();
     }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -80,34 +87,58 @@ public class App {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
     public static String GetTimeCurrent() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         return formatter.format(date);
     }
+
     public static boolean CheckIsAdministrator() {
-        if (UserLogined.getRole()==ROLE_ADMIN)
+        if (UserLogined.getRole() == ROLE_ADMIN)
             return true;
         return false;
     }
+
     public static String chuannHoaHoTen(String st) {
-        st=st.trim().toLowerCase();
+        st = st.trim().toLowerCase();
         st = st.replaceAll("\\s+", " ");
-        String[] temp= st.split(" ");
+        String[] temp = st.split(" ");
         // sau khi tách xong, gán xâu st thành sâu rỗng
-        st="";
-        for(int i=0;i<temp.length;i++) {
-            st+=String.valueOf(temp[i].charAt(0)).toUpperCase() + temp[i].substring(1);
-            if(i<temp.length-1) // nếu tempt[i] không phải từ cuối cùng
-                st+=" ";   // cộng thêm một khoảng trắng
+        st = "";
+        for (int i = 0; i < temp.length; i++) {
+            st += String.valueOf(temp[i].charAt(0)).toUpperCase() + temp[i].substring(1);
+            if (i < temp.length - 1) // nếu tempt[i] không phải từ cuối cùng
+                st += " ";   // cộng thêm một khoảng trắng
         }
         return st;
     }
-    public static String CurrencytoVN(int currency){
+
+    public static String CurrencytoVN(int currency) {
         Locale vn = new Locale("vi", "VN");
         NumberFormat vnFormat = NumberFormat.getCurrencyInstance(vn);
         String VND = vnFormat.format(currency);
-        VND = VND.replace("₫","VNĐ");
+        VND = VND.replace("₫", "VNĐ");
         return VND;
+    }
+
+    public static boolean CheckIsSDT(String SDT) {
+        if (Integer.parseInt(String.valueOf(SDT.charAt(0))) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void getRoundCurrent(Context context) {
+        try {
+            RoundDAO roundDAO = new RoundDAO(context);
+            Round DoanPhi = roundDAO.getRound_ID_isShow(TYPE_ROUND_DOAN_PHI);
+            Round HoiPhi = roundDAO.getRound_ID_isShow(TYPE_ROUND_HOI_PHI);
+            DotNopTienDoanPhi_Current = DoanPhi.getId();
+            DotNopTienHoiPhi_Current = HoiPhi.getId();
+            Price_DoanPhi_Current = DoanPhi.getPrice();
+            Price_HoiPhi_Current = HoiPhi.getPrice();
+        } catch (Exception e) {
+        }
     }
 }

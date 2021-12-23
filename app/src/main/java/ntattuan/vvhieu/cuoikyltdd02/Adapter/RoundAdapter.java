@@ -35,8 +35,8 @@ import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
 import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.R;
 
-public class RoundAdapter extends BaseAdapter {
-    private OnChangeAdapter onChangeAdapter;
+public class RoundAdapter extends BaseAdapter{
+    private static OnChangeAdapter  onChangeAdapter;
     private List<Round> ListRound;
     private RoundDAO roundDAO;
     private LayoutInflater layoutInflater;
@@ -52,9 +52,14 @@ public class RoundAdapter extends BaseAdapter {
         onChangeAdapter = eventListener;
     }
 
-    public void Change() {
+    public static void Change() {
         if (onChangeAdapter != null) {
             onChangeAdapter.onChange();
+        }
+    }
+    public void Edit(int id) {
+        if (onChangeAdapter != null) {
+            onChangeAdapter.onEdit(id);
         }
     }
 
@@ -76,14 +81,6 @@ public class RoundAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-    //Khi một Intent Finish và gửi về kết quả
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_CANCELED) {
-//            LoadListView_Round();
-//        }
-//    }
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -105,7 +102,7 @@ public class RoundAdapter extends BaseAdapter {
         holder.Round_STT.setText(String.valueOf(position + 1));
         holder.Round_Name.setText(round.getName());
         holder.Round_CreateTime.setText("Ngày tạo: " + round.getCreateTime());
-        holder.Round_Price.setText("Số tiền: " + App.CurrencytoVN(round.getPrice()));
+        holder.Round_Price.setText(App.CurrencytoVN(round.getPrice()));
         if (round.getIsShow() == App.SHOW) {
             holder.Round_IsShow.setVisibility(View.VISIBLE);
         } else {
@@ -147,11 +144,8 @@ public class RoundAdapter extends BaseAdapter {
                                 alert.show();
                                 break;
                             case R.id.Roundedit:
-                                Intent intent = new Intent(context, EditRoundActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("RoundID", round.getId());
-                                intent.putExtra("RoundCurrent", bundle);
-                                context.startActivity(intent);
+                                Edit(round.getId());
+
                                 break;
                             case R.id.Rounddelete:
                                 builder = new AlertDialog.Builder(v.getContext());

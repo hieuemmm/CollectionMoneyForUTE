@@ -50,7 +50,54 @@ public class CandidateDAO extends DBManager {
         }
         return false;
     }
-
+    //Check Exit but notme
+    public boolean CheckCandidateExits(String CMND,String NotMe) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CANDIDATE,
+                new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
+                CANDIDATE_CMND + "=? AND "+ CANDIDATE_CMND +" !=? ",
+                new String[]{CMND,NotMe},
+                null,
+                null,
+                null,
+                null);
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
+    }
+    //Check a SDT Exits
+    public boolean CheckSDTExits(String SDT,String NotMe) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CANDIDATE,
+                new String[]{CANDIDATE_ID},
+                CANDIDATE_SDT + " = ? AND "+ CANDIDATE_SDT +" != ?",
+                new String[]{SDT,NotMe},
+                null,
+                null,
+                null,
+                null);
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
+    }
+    //Check a SDT Exits
+    public boolean CheckSDTExits(String SDT) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CANDIDATE,
+                new String[]{CANDIDATE_ID},
+                CANDIDATE_SDT + "=?",
+                new String[]{SDT},
+                null,
+                null,
+                null,
+                null);
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
+    }
     //Delete a Candidate
     public void deleteCandidate(Candidate candidate) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -170,6 +217,17 @@ public class CandidateDAO extends DBManager {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CANDIDATE_IS_ACTIVE, App.ACTIVE);
+        db.update(TABLE_CANDIDATE, values, CANDIDATE_ID + "=?", new String[]{String.valueOf(candidate.getId())});
+    }
+    public void UpdateCandidate(Candidate candidate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CANDIDATE_NAME, candidate.getName());
+        values.put(CANDIDATE_CMND, candidate.getCMND());
+        values.put(CANDIDATE_SDT, candidate.getSDT());
+        values.put(CANDIDATE_GENDER, candidate.getGender());
+        values.put(CANDIDATE_AVATAR, candidate.getAvatar());
+        values.put(CANDIDATE_IS_ACTIVE, candidate.getIsActive());
         db.update(TABLE_CANDIDATE, values, CANDIDATE_ID + "=?", new String[]{String.valueOf(candidate.getId())});
     }
 }

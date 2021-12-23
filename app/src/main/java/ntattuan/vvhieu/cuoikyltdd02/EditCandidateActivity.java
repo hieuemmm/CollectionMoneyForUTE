@@ -21,16 +21,19 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 
+import ntattuan.vvhieu.cuoikyltdd02.Adapter.CandidateAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 
 public class EditCandidateActivity extends AppCompatActivity {
-    private ImageView DoanVien_Edit_Avatar, DoanVien_Edit_ButtonCamera, DoanVien_Edit_ButtonLiblary, doanvien_ButtonBack;
-    private TextView DoanVien_Edit_ID,DoanVien_Edit_Name, DoanVien_Edit_CMND, DoanVien_Edit_SDT, DoanVien_Edit_CMNDError, DoanVien_Edit_SDTError;
-    private boolean FromErrorCMND = true;
+    private ImageView DoanVien_Edit_Avatar, DoanVien_Edit_ButtonCamera, DoanVien_Edit_ButtonLiblary, DoanVien_Edit_ButtonBack,DoanVien_Edit_ReloadButton;
+    private TextView DoanVien_Edit_ID, DoanVien_Edit_Name, DoanVien_Edit_CMND, DoanVien_Edit_SDT, DoanVien_Edit_CMNDError, DoanVien_Edit_SDTError;
     private CandidateDAO candidateDAO;
-    private RadioButton DoanVien_Edit_GenderNam,Doanvien_Edit_GenderNu;
+    private Candidate candidateCurrent;
+    private RadioButton DoanVien_Edit_GenderNam, Doanvien_Edit_GenderNu;
     private Button DoanVien_Edit_ButtonEdit;
+    private boolean FromErrorCMND = false;
+    private boolean FromErrorSDT = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,34 +43,31 @@ public class EditCandidateActivity extends AppCompatActivity {
         DoanVien_Edit_Avatar = (ImageView) findViewById(R.id.DoanVien_Edit_Avatar);
         DoanVien_Edit_ButtonCamera = (ImageView) findViewById(R.id.DoanVien_Edit_ButtonCamera);
         DoanVien_Edit_ButtonLiblary = (ImageView) findViewById(R.id.DoanVien_Edit_ButtonLiblary);
-        doanvien_ButtonBack = (ImageView) findViewById(R.id.Doanvien_Edit_ButtonBack);
-        DoanVien_Edit_ID = (TextView) findViewById(R.id.Doanvien_Edit_ID);
-        DoanVien_Edit_Name = (TextView) findViewById(R.id.Doanvien_Edit_Name);
-        DoanVien_Edit_CMND = (TextView) findViewById(R.id.Doanvien_Edit_CMND);
-        DoanVien_Edit_CMNDError = (TextView) findViewById(R.id.Doanvien_Edit_CMNDError);
-        DoanVien_Edit_SDT = (TextView) findViewById(R.id.Doanvien_Edit_SDT);
-        DoanVien_Edit_SDTError = (TextView) findViewById(R.id.Doanvien_Edit_SDT);
+        DoanVien_Edit_ButtonBack = (ImageView) findViewById(R.id.DoanVien_Edit_ButtonBack);
+        DoanVien_Edit_ReloadButton = (ImageView) findViewById(R.id.DoanVien_Edit_ReloadButton);
+        DoanVien_Edit_ID = (TextView) findViewById(R.id.DoanVien_Edit_ID);
+        DoanVien_Edit_Name = (TextView) findViewById(R.id.DoanVien_Edit_Name);
+        DoanVien_Edit_CMND = (TextView) findViewById(R.id.DoanVien_Edit_CMND);
+        DoanVien_Edit_CMNDError = (TextView) findViewById(R.id.DoanVien_Edit_CMNDError);
+        DoanVien_Edit_SDT = (TextView) findViewById(R.id.DoanVien_Edit_SDT);
+        DoanVien_Edit_SDTError = (TextView) findViewById(R.id.DoanVien_Edit_SDTError);
         DoanVien_Edit_ButtonEdit = (Button) findViewById(R.id.DoanVien_Edit_ButtonEdit);
-        DoanVien_Edit_GenderNam =(RadioButton) findViewById(R.id.Doanvien_Edit_GenderNam);
-        Doanvien_Edit_GenderNu =(RadioButton) findViewById(R.id.Doanvien_Edit_GenderNu);
-        DoanVien_Edit_CMNDError.setText("");
-        DoanVien_Edit_SDTError.setText("");
+        DoanVien_Edit_GenderNam = (RadioButton) findViewById(R.id.DoanVien_Edit_GenderNam);
+        Doanvien_Edit_GenderNu = (RadioButton) findViewById(R.id.DoanVien_Edit_GenderNu);
         //Lấy dữ liệu từ Intent về set
         Intent callerIntent = getIntent();
         Bundle packageFromCaller = callerIntent.getBundleExtra("CandidateCurrent");
         int CandidateID = packageFromCaller.getInt("CandidateID");
-        Candidate candidate = candidateDAO.getCandidateByID(CandidateID);
-        DoanVien_Edit_Avatar.setImageBitmap(candidate.getAvatarToBitMap());
-        DoanVien_Edit_ID.setText(String.valueOf(candidate.getId()));
-        DoanVien_Edit_Name.setText(candidate.getName());
-        DoanVien_Edit_CMND.setText(candidate.getCMND());
-        DoanVien_Edit_SDT.setText(candidate.getSDT());
-        if (candidate.getGender()==App.GENDER_NAM){
-            DoanVien_Edit_GenderNam.setChecked(true);
-        }else {
-            Doanvien_Edit_GenderNu.setChecked(true);
-        }
-        //Bắt sự kiện
+        candidateCurrent = candidateDAO.getCandidateByID(CandidateID);
+        Load_DoanVien();
+
+
+        DoanVien_Edit_ReloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Load_DoanVien();
+            }
+        });
         DoanVien_Edit_ButtonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +80,7 @@ public class EditCandidateActivity extends AppCompatActivity {
                 SelectImageFolder();
             }
         });
-        doanvien_ButtonBack.setOnClickListener(new View.OnClickListener() {
+        DoanVien_Edit_ButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -102,21 +102,32 @@ public class EditCandidateActivity extends AppCompatActivity {
                 FromErrorCMND = true;
                 if (s.length() != 0) {
                     DoanVien_Edit_CMNDError.setText(s.length() + "/9 kí tự");
-                    if (s.length() == 9) {
+                    if (s.length() == 9 || s.length() == 12) {
+                        DoanVien_Edit_CMNDError.setText(s.length() + "/" + s.length() + " kí tự");
                         DoanVien_Edit_CMNDError.setTextColor(Color.BLACK);
                         DoanVien_Edit_CMND.setTextColor(Color.BLACK);
-                        if (candidateDAO.CheckCandidateExits(s.toString())) {
-                            DoanVien_Edit_CMNDError.setText("[ Bị trùng lặp ] " + s.length() + "/9 kí tự");
+                        if (candidateDAO.CheckCandidateExits(s.toString(),candidateCurrent.getCMND())) {
+                            DoanVien_Edit_CMNDError.setText("[ Bị trùng lặp ] " + s.length() + "/" + s.length() + " kí tự");
                             DoanVien_Edit_CMND.setTextColor(Color.RED);
                             DoanVien_Edit_CMNDError.setTextColor(Color.RED);
                         } else {
                             FromErrorCMND = false;
-                            DoanVien_Edit_SDT.requestFocus();
+                            if (s.length() == 12) {
+                                DoanVien_Edit_SDT.requestFocus();
+                            }
                         }
+                    } else if (s.length() > 9) {
+                        DoanVien_Edit_CMNDError.setText(s.length() + "/12 kí tự");
+                        DoanVien_Edit_CMND.setTextColor(Color.RED);
+                        DoanVien_Edit_CMNDError.setTextColor(Color.RED);
                     } else {
                         DoanVien_Edit_CMND.setTextColor(Color.RED);
                         DoanVien_Edit_CMNDError.setTextColor(Color.RED);
                     }
+                } else {
+                    DoanVien_Edit_CMNDError.setText("");
+                    DoanVien_Edit_CMND.setTextColor(Color.RED);
+                    DoanVien_Edit_CMNDError.setTextColor(Color.RED);
                 }
             }
         });
@@ -132,20 +143,39 @@ public class EditCandidateActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                FromErrorSDT = true;
                 if (s.length() != 0) {
-                    DoanVien_Edit_SDTError.setText(s.length() + "/10 kí tự");
-                    if (s.length() == 10 || s.length() == 11) {
-                        DoanVien_Edit_SDTError.setTextColor(Color.BLACK);
-                        DoanVien_Edit_SDT.setTextColor(Color.BLACK);
-                        if (true) {
-                            DoanVien_Edit_SDTError.setText("[ Đã tồn tại ] " + s.length() + "/10 kí tự");
+                    if (App.CheckIsSDT(s.toString())) {
+                        DoanVien_Edit_SDTError.setText(s.length() + "/10 kí tự");
+                        if (s.length() == 10 || s.length() == 11) {
+                            DoanVien_Edit_SDTError.setText(s.length() + "/" + s.length() + " kí tự");
+                            DoanVien_Edit_SDTError.setTextColor(Color.BLACK);
+                            DoanVien_Edit_SDT.setTextColor(Color.BLACK);
+                            if (candidateDAO.CheckSDTExits(s.toString(),candidateCurrent.getSDT())) {
+                                DoanVien_Edit_SDTError.setText("[ Đã tồn tại ] " + s.length() + "/" + s.length() + " kí tự");
+                                DoanVien_Edit_SDTError.setTextColor(Color.RED);
+                                DoanVien_Edit_SDT.setTextColor(Color.RED);
+                            } else {
+                                FromErrorSDT = false;
+                            }
+                        } else if (s.length() > 11) {
+                            DoanVien_Edit_SDTError.setText(s.length() + "/11 kí tự");
+                            DoanVien_Edit_SDTError.setTextColor(Color.RED);
                             DoanVien_Edit_SDT.setTextColor(Color.RED);
+                        } else {
+                            DoanVien_Edit_SDTError.setTextColor(Color.RED);
                             DoanVien_Edit_SDT.setTextColor(Color.RED);
                         }
                     } else {
-                        DoanVien_Edit_SDT.setTextColor(Color.RED);
+                        DoanVien_Edit_SDTError.setText("[Không phải số điện thoại]");
+                        DoanVien_Edit_SDTError.setTextColor(Color.RED);
                         DoanVien_Edit_SDT.setTextColor(Color.RED);
                     }
+                } else {
+                    DoanVien_Edit_SDTError.setText("");
+                    DoanVien_Edit_SDTError.setTextColor(Color.BLACK);
+                    DoanVien_Edit_SDT.setTextColor(Color.BLACK);
+                    FromErrorSDT = false;
                 }
             }
         });
@@ -166,27 +196,48 @@ public class EditCandidateActivity extends AppCompatActivity {
                 } else if (FromErrorCMND == false) {
                     //Đủ điển kiện thêm đoàn viên và không trùng CMND
                     String SDT = "";
-                    if (DoanVien_Edit_SDT.getText().toString().replace(" ", "").length() == 10||DoanVien_Edit_SDT.getText().toString().replace(" ", "").length() == 11) {
+                    if (DoanVien_Edit_SDT.getText().toString().replace(" ", "").length() == 10 || DoanVien_Edit_SDT.getText().toString().replace(" ", "").length() == 11) {
                         SDT = String.valueOf(DoanVien_Edit_SDT.getText());
+                    } else if (DoanVien_Edit_SDT.getText().toString().replace(" ", "").length() != 0) {
+                        DoanVien_Edit_SDT.requestFocus();
                     }
-                    Candidate candidate = new Candidate(
-                            DoanVien_Edit_Name.getText().toString(),
-                            DoanVien_Edit_CMND.getText().toString(),
-                            SDT,
-                            DoanVien_Edit_GenderNam.isChecked() ? App.GENDER_NAM : App.GENDER_NU,
-                            App.getImageBitmap(DoanVien_Edit_Avatar),
-                            App.CheckIsAdministrator() ? App.ACTIVE : App.NO_ACTIVE
-                    );
-                    candidateDAO.addCandidate(candidate);
-                    setResult(Activity.RESULT_CANCELED, new Intent());
-                    finish();
+                    if (!FromErrorSDT) {
+                        Candidate candidate = new Candidate(
+                                candidateCurrent.getId(),
+                                DoanVien_Edit_Name.getText().toString(),
+                                DoanVien_Edit_CMND.getText().toString(),
+                                SDT,
+                                DoanVien_Edit_GenderNam.isChecked() ? App.GENDER_NAM : App.GENDER_NU,
+                                App.getImageBitmap(DoanVien_Edit_Avatar),
+                                App.CheckIsAdministrator() ? App.ACTIVE : candidateCurrent.getIsActive()
+                        );
+                        candidateDAO.UpdateCandidate(candidate);
+                        App.ToastShow(getBaseContext(), "Sửa đoàn viên thành công");
+                        CandidateAdapter.Change();
+                        finish();
+                    }
                 } else {
                     DoanVien_Edit_CMND.requestFocus();
                 }
             }
         });
     }
-
+    private void Load_DoanVien(){
+        FromErrorCMND = false;
+        FromErrorSDT = false;
+        DoanVien_Edit_CMNDError.setText("");
+        DoanVien_Edit_SDTError.setText("");
+        DoanVien_Edit_Avatar.setImageBitmap(candidateCurrent.getAvatarToBitMap());
+        DoanVien_Edit_ID.setText(String.valueOf(candidateCurrent.getId()));
+        DoanVien_Edit_Name.setText(candidateCurrent.getName());
+        DoanVien_Edit_CMND.setText(candidateCurrent.getCMND());
+        DoanVien_Edit_SDT.setText(candidateCurrent.getSDT());
+        if (candidateCurrent.getGender() == App.GENDER_NAM) {
+            DoanVien_Edit_GenderNam.setChecked(true);
+        } else {
+            Doanvien_Edit_GenderNu.setChecked(true);
+        }
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == App.REQUEST_CODE_CAMERA && resultCode == RESULT_OK && data != null) {

@@ -23,6 +23,17 @@ public class Candidate {
     public Candidate() {
 
     }
+
+    public Candidate(int id, String name, String CMND, String SDT, int gender, byte[] avatar, int isActive) {
+        Id = id;
+        Name = name;
+        this.CMND = CMND;
+        this.SDT = SDT;
+        Gender = gender;
+        Avatar = avatar;
+        IsActive = isActive;
+    }
+
     public Candidate(String name, String CMND, String SDT, int gender, byte[] avatar, int isActive) {
         Name = name;
         this.CMND = CMND;

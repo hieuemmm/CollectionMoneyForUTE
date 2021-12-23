@@ -29,7 +29,7 @@ import ntattuan.vvhieu.cuoikyltdd02.Model.DoneMoney;
 import ntattuan.vvhieu.cuoikyltdd02.R;
 
 public class CandidateAdapter extends BaseAdapter {
-    private OnChangeAdapter onChangeAdapter;
+    private static OnChangeAdapter onChangeAdapter;
     public List<Candidate> listCandidate;
     private ViewHolder holder;
     private DoneMoneyDAO doneMoneyDAO;
@@ -39,17 +39,16 @@ public class CandidateAdapter extends BaseAdapter {
     private Context context;
 
     // START CustomEvent
-    public void setOnChangeAdapter(OnChangeAdapter eventListener)
-    {
+    public void setOnChangeAdapter(OnChangeAdapter eventListener) {
         onChangeAdapter = eventListener;
     }
-    public void Change()
-    {
-        if(onChangeAdapter != null)
-        {
+
+    public static void Change() {
+        if (onChangeAdapter != null) {
             onChangeAdapter.onChange();
         }
     }
+
     //END CustomEvent
     public CandidateAdapter(Context aContext) {
         this.context = aContext;
@@ -57,6 +56,7 @@ public class CandidateAdapter extends BaseAdapter {
         doneMoneyDAO = new DoneMoneyDAO(this.context);
         candidateDAO = new CandidateDAO(this.context);
     }
+
     public void setListCandidate(List<Candidate> listCandidate) {
         this.listCandidate = Candidate.Sort(listCandidate);
     }
@@ -98,7 +98,7 @@ public class CandidateAdapter extends BaseAdapter {
         Candidate candidate = this.listCandidate.get(position);
         holder.candidate_avatar.setImageBitmap(candidate.getAvatarToBitMap());
         holder.candidate_Name.setText("Tên: " + candidate.getName());
-        holder.candidate_CMND.setText("CMND: " + candidate.getCMND());
+        holder.candidate_CMND.setText("CMND/CCCD: " + candidate.getCMND());
         holder.candidate_ID.setText(String.valueOf(candidate.getId()));
         holder.candidate_Gender.setText("Giới tính: " + candidate.getGenderToString());
         hiddenShowButton(candidate);
@@ -162,7 +162,7 @@ public class CandidateAdapter extends BaseAdapter {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Đoàn phí");
                 if (!candidate.isDoanPhi()) {
-                    builder.setMessage("Thu hộ 60.000 VND ?");
+                    builder.setMessage("Thu hộ " + App.CurrencytoVN(App.Price_DoanPhi_Current) + " ?");
                     builder.setPositiveButton("Thu Tiền", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             //Thêm vào bảng đã nạp tiền
@@ -177,14 +177,14 @@ public class CandidateAdapter extends BaseAdapter {
                             );
                             doneMoneyDAO.addDoneMoney(doneMoney);
                             candidate.setDoanPhi(true);
-                            App.ToastShow(v.getContext().getApplicationContext(), "Thu thành công");
+                            App.ToastShow(v.getContext().getApplicationContext(), "Đã thu " + App.CurrencytoVN(App.Price_DoanPhi_Current) + " từ " + candidate.getName());
                             v.findViewById(R.id.Candidate_Button_DoanPhi).setBackground(v.getResources().getDrawable(R.drawable.btn_green));
                             dialog.dismiss();
                         }
                     });
                 } else {
                     builder.setMessage("Hủy thu tiền ?");
-                    builder.setPositiveButton("Hủy Thu", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Hủy Thu " + App.CurrencytoVN(App.Price_DoanPhi_Current), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             DoneMoney doneMoney = doneMoneyDAO.getDoneMoneyByID(candidate.getId(), App.DotNopTienDoanPhi_Current);
                             doneMoney.setIsActive(App.NO_ACTIVE);
@@ -192,7 +192,7 @@ public class CandidateAdapter extends BaseAdapter {
                             doneMoney.setDelete_time(App.GetTimeCurrent());
                             doneMoneyDAO.updateDoneMoney(doneMoney);
                             candidate.setDoanPhi(false);
-                            App.ToastShow(v.getContext().getApplicationContext(), "Đã hủy thu");
+                            App.ToastShow(v.getContext().getApplicationContext(), "Đã thu " + App.CurrencytoVN(App.Price_DoanPhi_Current) + " của " + candidate.getName());
                             v.findViewById(R.id.Candidate_Button_DoanPhi).setBackground(v.getResources().getDrawable(R.drawable.btn_red_border));
                             dialog.dismiss();
                         }
@@ -214,7 +214,7 @@ public class CandidateAdapter extends BaseAdapter {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Hội phí");
                 if (!candidate.isHoiPhi()) {
-                    builder.setMessage("Thu hộ 60.000 VND ?");
+                    builder.setMessage("Thu hộ " + App.CurrencytoVN(App.Price_HoiPhi_Current) + " ?");
                     builder.setPositiveButton("Thu Tiền", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             //Thêm vào bảng đã nạp tiền
@@ -229,14 +229,14 @@ public class CandidateAdapter extends BaseAdapter {
                             );
                             doneMoneyDAO.addDoneMoney(doneMoney);
                             candidate.setHoiPhi(true);
-                            App.ToastShow(v.getContext().getApplicationContext(), "Thu thành công");
+                            App.ToastShow(v.getContext().getApplicationContext(), "Đã thu " + App.CurrencytoVN(App.Price_HoiPhi_Current) + " từ " + candidate.getName());
                             v.findViewById(R.id.Candidate_Button_HoiPhi).setBackground(v.getResources().getDrawable(R.drawable.btn_green));
                             dialog.dismiss();
                         }
                     });
                 } else {
                     builder.setMessage("Hủy thu tiền ?");
-                    builder.setPositiveButton("Hủy Thu", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Hủy Thu " + App.CurrencytoVN(App.Price_HoiPhi_Current), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             DoneMoney doneMoney = doneMoneyDAO.getDoneMoneyByID(candidate.getId(), App.DotNopTienHoiPhi_Current);
                             doneMoney.setIsActive(App.NO_ACTIVE);
@@ -244,7 +244,7 @@ public class CandidateAdapter extends BaseAdapter {
                             doneMoney.setDelete_time(App.GetTimeCurrent());
                             doneMoneyDAO.updateDoneMoney(doneMoney);
                             candidate.setHoiPhi(false);
-                            App.ToastShow(v.getContext().getApplicationContext(), "Đã hủy thu");
+                            App.ToastShow(v.getContext().getApplicationContext(), "Đã thu " + App.CurrencytoVN(App.Price_HoiPhi_Current) + " của " + candidate.getName());
                             v.findViewById(R.id.Candidate_Button_HoiPhi).setBackground(v.getResources().getDrawable(R.drawable.btn_red_border));
                             dialog.dismiss();
                         }
