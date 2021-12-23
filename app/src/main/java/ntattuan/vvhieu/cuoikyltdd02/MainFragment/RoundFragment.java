@@ -78,7 +78,7 @@ public class RoundFragment extends Fragment {
         roundDAO = new RoundDAO(this.getActivity());
 
         roundAdapter = new RoundAdapter(this.getActivity());
-        TaoDuLieuMau();
+        //TaoDuLieuMau();
         App.Round_Tab_Current = App.ROUND_TAB_DOAN_PHI;
         LoadListView_Round();
         Round_TabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -6,6 +6,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ntattuan.vvhieu.cuoikyltdd02.App;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.User;
 
@@ -67,6 +71,26 @@ public class UserDAO extends DBManager {
         cursor.close();
         db.close();
         return user;
+    }
+
+    //select ALL
+    public String[] getAllUserName() {
+        List<String> listUserName = new ArrayList<String>();
+        String selectQuery = "SELECT  * FROM " + TABLE_USER + " WHERE " + USER_ROLE + " != " + App.ROLE_ADMIN;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String[] stringArray = null;
+        if (cursor.moveToFirst()) {
+            do {
+                User user = new User();
+                user.setUserName(cursor.getString(0));
+                listUserName.add(user.getUserName());
+            } while (cursor.moveToNext());
+            stringArray = listUserName.toArray(new String[0]);
+        }
+        cursor.close();
+        db.close();
+        return stringArray;
     }
 }
 

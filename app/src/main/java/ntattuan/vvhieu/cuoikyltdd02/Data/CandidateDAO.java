@@ -230,4 +230,13 @@ public class CandidateDAO extends DBManager {
         values.put(CANDIDATE_IS_ACTIVE, candidate.getIsActive());
         db.update(TABLE_CANDIDATE, values, CANDIDATE_ID + "=?", new String[]{String.valueOf(candidate.getId())});
     }
+
+    public int Count(int isActive) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_CANDIDATE + " WHERE " + CANDIDATE_IS_ACTIVE + " = " + isActive;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        int count = cursor.getCount();
+        db.close();
+        return count;
+    }
 }

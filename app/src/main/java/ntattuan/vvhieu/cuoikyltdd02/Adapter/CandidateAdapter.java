@@ -272,9 +272,7 @@ public class CandidateAdapter extends BaseAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         candidateDAO.ActiveCandidate(candidate);
                         App.ToastShow(v.getContext().getApplicationContext(), "Duyệt thành công");
-                        holder.candidate_Is_Active.setBackgroundResource(0);
-                        candidate.setIsActive(App.ACTIVE);
-                        hiddenShowButton(candidate);
+                        Change();
                         dialog.dismiss();
                     }
                 });

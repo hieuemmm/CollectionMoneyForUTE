@@ -71,7 +71,7 @@ public class CandidateFragment extends Fragment {
         doanvien_listview = (ListView) view.findViewById(R.id.doanvien_listview);
         candidateDAO = new CandidateDAO(this.getActivity());
         doanVienAdapter = new CandidateAdapter(this.getActivity());
-        TaoDuLieuMau();
+        //TaoDuLieuMau();
         App.DoanVien_Tab_Current = App.DOANVIEN_TAB_ALL;
         LoadListView_DoanVien();
         //Tìm kiếm đoàn viên

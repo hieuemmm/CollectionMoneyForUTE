@@ -122,6 +122,28 @@ public class App {
         return VND;
     }
 
+    public static String CurrencytoK(String currencyStr) {
+        currencyStr = currencyStr.replace(".0", "");
+        int currencyInt = Integer.parseInt(currencyStr);
+        currencyInt /= 1000;
+        currencyStr = CurrencytoVN(currencyInt);
+        currencyStr = currencyStr.replace("VNĐ","K");
+        return currencyStr;
+    }
+    public static String CurrencytoK(int currencyInt) {
+        currencyInt /= 1000;
+        String currencyStr = CurrencytoVN(currencyInt);
+        currencyStr = currencyStr.replace("VNĐ","K");
+        return currencyStr;
+    }
+    public static String StringtoPeople(String PeopleStr) {
+        PeopleStr = PeopleStr.replace(".0", "");
+        int PeopleInt = Integer.parseInt(PeopleStr);
+        PeopleStr = CurrencytoVN(PeopleInt);
+        PeopleStr = PeopleStr.replace("VNĐ"," Người");
+        return PeopleStr;
+    }
+
     public static boolean CheckIsSDT(String SDT) {
         if (Integer.parseInt(String.valueOf(SDT.charAt(0))) == 0) {
             return true;
@@ -141,4 +163,5 @@ public class App {
         } catch (Exception e) {
         }
     }
+
 }
