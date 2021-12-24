@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/User_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#2082FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/User_textSearch"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/txt_search"
+            android:ems="10"
+            android:hint="Tìm kiếm user..."
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:paddingLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/User_ButtonAdd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/User_search_bar"
+            tools:ignore="TouchTargetSizeCheck" />
+        <ImageView
+            android:id="@+id/User_ButtonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_box_24" />
+
+        <ImageView
+            android:id="@+id/User_SearchClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/User_textSearch"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/User_Button_isLock"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="5dp"
+            android:background="#f5f5f5"
+            android:paddingRight="0dp"
+            android:text="Bị khóa"
+            android:textAllCaps="false"
+            android:textColor="#717171"
+            android:textSize="12dp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/User_textSearch"
+            app:layout_constraintEnd_toStartOf="@+id/User_SearchClose"
+            app:layout_constraintTop_toTopOf="@+id/User_textSearch"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:textAllCaps="false" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/User_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:listSelector="@drawable/list_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/User_search_bar"
+        app:layout_goneMarginTop="60dp">
+
+    </ListView>
+</androidx.constraintlayout.widget.ConstraintLayout>

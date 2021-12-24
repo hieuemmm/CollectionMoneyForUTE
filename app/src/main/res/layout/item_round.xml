@@ -58,21 +58,22 @@
     <TextView
         android:id="@+id/Round_CreateTime"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:text="Ngày tạo: 12/12/2021 19:27"
         android:textColor="#333"
         android:textSize="15sp"
+        app:flow_verticalAlign="center"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/Round_menu"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/Round_STT"
-        app:layout_constraintTop_toBottomOf="@+id/Round_Name" />
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/Round_Price"
         android:layout_width="0dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="10dp"
         android:gravity="left"
         android:text="Số tiền : 60.000 VND"
@@ -91,5 +92,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/round_line_show" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="-5dp"
+        app:layout_constraintStart_toStartOf="@+id/Round_STT"
+        app:layout_constraintTop_toBottomOf="@+id/round_STTdost"
+        app:srcCompat="@drawable/ic_outline_folder_open_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

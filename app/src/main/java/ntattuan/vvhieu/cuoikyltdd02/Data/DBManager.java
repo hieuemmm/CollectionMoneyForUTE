@@ -21,6 +21,8 @@ public class DBManager extends SQLiteOpenHelper {
     protected static final String TABLE_USER ="users";
     protected static final String USER_NAME ="username";
     protected static final String USER_PASSWORD ="password";
+    protected static final String USER_SDT ="sdt";
+    protected static final String USER_IS_ACTIVE ="isactive";
     protected static final String USER_ROLE ="role";
 
     protected static final String TABLE_CANDIDATE ="candidates";
@@ -61,6 +63,8 @@ public class DBManager extends SQLiteOpenHelper {
         String sqlQuery = "CREATE TABLE "+TABLE_USER +" (" +
                 USER_NAME +" TEXT primary key, "+
                 USER_PASSWORD + " TEXT, "+
+                USER_SDT + " TEXT, "+
+                USER_IS_ACTIVE + " INTEGER, "+
                 USER_ROLE +" INTEGER)";
         db.execSQL(sqlQuery);
         //create table candidates

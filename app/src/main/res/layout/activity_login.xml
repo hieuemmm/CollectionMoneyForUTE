@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".LoginActivity">
     <ImageView
         android:id="@+id/login_logo"
@@ -19,7 +20,9 @@
         android:id="@+id/loginFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/box_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -36,18 +39,18 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="42dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/text_box"
         android:ems="10"
         android:hint="Tài khoản..."
-        android:text="admin"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:paddingLeft="15dp"
+        android:text="admin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/loginFrame" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/loginPassWord"
@@ -76,7 +79,7 @@
     <CheckBox
         android:id="@+id/loginRemember"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/loginPassWord"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -92,24 +95,27 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Candidate_Button_DoanPhi"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/bg_button"
         android:text="Đăng Nhập"
+        android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassWord" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPassWord"
+        tools:textAllCaps="false" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="-10dp"
         android:text="Quản lý đoàn phí hội phí"
-        android:textColor="#504040"
+        android:textColor="#D3493F"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

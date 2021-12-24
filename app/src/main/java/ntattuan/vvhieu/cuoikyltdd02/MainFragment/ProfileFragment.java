@@ -45,8 +45,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        logoutButton = (Button) view.findViewById(R.id.Candidate_Button_DoanPhi);
-
+        logoutButton = (Button) view.findViewById(R.id.Candidate_Button_Logout);
+        logoutButton.setText("Đăng xuất tài khoản - "+App.UserLogined.getUserName()+"");
         //Bắt sự kiện
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

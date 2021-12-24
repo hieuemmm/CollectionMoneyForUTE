@@ -64,10 +64,16 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void TaoDuLieuMau() {
         List<User> listUser = new ArrayList<User>();
-        User user1 = new User("admin","admin",App.ROLE_ADMIN);
-        User user2 = new User("bithu","bithu",App.ROLE_BITHU);
+        User user1 = new User("admin","admin","0398503361",App.ACTIVE,App.ROLE_ADMIN);
+        User user5 = new User("admin1","admin1","0398503364",App.NO_ACTIVE,App.ROLE_ADMIN);
+        User user2 = new User("bithu","bithu","0398503362",App.NO_ACTIVE,App.ROLE_BITHU);
+        User user3 = new User("bithu1","bithu1","0398503363",App.NO_ACTIVE,App.ROLE_BITHU);
+        User user4 = new User("bithu2","bithu2","0398503364",App.ACTIVE,App.ROLE_BITHU);
         listUser.add(user1);
         listUser.add(user2);
+        listUser.add(user3);
+        listUser.add(user4);
+        listUser.add(user5);
         for (User user : listUser) {
             if (!userDAO.CheckUserExits(user.getUserName())) {
                 userDAO.addUser(user);

@@ -99,7 +99,16 @@ public class App {
             return true;
         return false;
     }
-
+    public static boolean CheckIsadmin() {
+        if (UserLogined.getUserName().equals("admin"))
+            return true;
+        return false;
+    }
+    public static boolean CheckIsMe(User user) {
+        if (UserLogined.getUserName().equals(user.getUserName()))
+            return true;
+        return false;
+    }
     public static String chuannHoaHoTen(String st) {
         st = st.trim().toLowerCase();
         st = st.replaceAll("\\s+", " ");
