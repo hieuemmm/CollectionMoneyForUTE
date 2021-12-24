@@ -9,13 +9,14 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/drawable/ca_nhan.xml" value="0.2203125" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/drawable/doan_vien.xml" value="0.2203125" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.19947916666666668" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_add_candidate.xml" value="0.34205933682373474" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_add_candidate.xml" value="0.1111111111111111" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_add_doan_vien.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_add_round.xml" value="0.1" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_add_user.xml" value="0.22" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_edit_candidate.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_edit_doan_vien.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_edit_round.xml" value="0.22" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_history.xml" value="0.2" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_ca_nhan.xml" value="0.1" />
@@ -33,7 +34,8 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/fragment_user.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/item_candidate.xml" value="0.1" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/item_doanvien.xml" value="0.5" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/item_round.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/item_history.xml" value="0.67" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/item_round.xml" value="0.3103448275862069" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/layout/item_user.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/menu/candidate_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/CuoiKyLTDD02/app/src/main/res/menu/clipboard_popup.xml" value="0.33" />

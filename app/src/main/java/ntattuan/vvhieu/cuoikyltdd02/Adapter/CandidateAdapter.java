@@ -24,6 +24,7 @@ import ntattuan.vvhieu.cuoikyltdd02.Data.DoneMoneyDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Data.CandidateDAO;
 import ntattuan.vvhieu.cuoikyltdd02.EditCandidateActivity;
 import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
+import ntattuan.vvhieu.cuoikyltdd02.HistoryActivity;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Candidate;
 import ntattuan.vvhieu.cuoikyltdd02.Model.DoneMoney;
 import ntattuan.vvhieu.cuoikyltdd02.R;
@@ -111,13 +112,19 @@ public class CandidateAdapter extends BaseAdapter {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent;
+                        Bundle bundle;
                         switch (item.getItemId()) {
                             case R.id.view:
-                                App.ToastShow(v.getContext().getApplicationContext(), candidate.getName());
+                                intent = new Intent(context, HistoryActivity.class);
+                                bundle = new Bundle();
+                                bundle.putInt("CandidateID", candidate.getId());
+                                intent.putExtra("CandidateCurrent", bundle);
+                                context.startActivity(intent);
                                 break;
                             case R.id.edit:
-                                Intent intent = new Intent(context, EditCandidateActivity.class);
-                                Bundle bundle = new Bundle();
+                                intent = new Intent(context, EditCandidateActivity.class);
+                                bundle = new Bundle();
                                 bundle.putInt("CandidateID", candidate.getId());
                                 intent.putExtra("CandidateCurrent", bundle);
                                 context.startActivity(intent);

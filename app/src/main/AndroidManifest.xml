@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CuoiKyLTDD02">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddUserActivity"
             android:exported="false" />
         <activity

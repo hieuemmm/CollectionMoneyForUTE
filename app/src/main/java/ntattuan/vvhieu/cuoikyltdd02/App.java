@@ -42,6 +42,8 @@ public class App {
     public static final int NO_ACTIVE = 0;
     public static final int SHOW = 1;
     public static final int NO_SHOW = 0;
+    public static final int ACTIONT_COLLECT = 0;
+    public static final int ACTIONT_UN_COLLECT = 1;
     public static final int REQUEST_CODE_CAMERA = 123;
     public static final int REQUEST_CODE_FOLDER = 456;
     public static final int LAUNCH_SECOND_ACTIVITY = 321;
