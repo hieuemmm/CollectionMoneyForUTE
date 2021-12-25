@@ -23,7 +23,7 @@ public class HistoryActivity extends AppCompatActivity {
     private HistoryDAO historyDAO;
     private CandidateDAO candidateDAO;
     private ImageView History_ButtonBack,History_Candidate_Avatar;
-    private TextView History_Candidate_Name, History_Candidate_CMND,History_Candidate_SDT,History_Candidate_Gender;
+    private TextView History_Candidate_Name, History_Candidate_CMND,History_Candidate_SDT,History_Candidate_Gender,History_notifi;
     private ListView History_listview;
     private TabLayout History_TabLayout;
     private HistoryAdapter historyAdapter;
@@ -44,6 +44,7 @@ public class HistoryActivity extends AppCompatActivity {
         History_Candidate_CMND = (TextView) findViewById(R.id.History_Candidate_CMND);
         History_Candidate_SDT = (TextView) findViewById(R.id.History_Candidate_SDT);
         History_Candidate_Gender = (TextView) findViewById(R.id.History_Candidate_Gender);
+        History_notifi = (TextView) findViewById(R.id.History_notifi);
         History_listview = (ListView) findViewById(R.id.History_listview);
         History_TabLayout = (TabLayout) findViewById(R.id.History_TabLayout);
 
@@ -96,5 +97,10 @@ public class HistoryActivity extends AppCompatActivity {
         List<History> histories = historyDAO.getHistoryOfCandidate(candidateCurrent.getId(),TypeCurrent);
         historyAdapter.setListHistory(histories);
         History_listview.setAdapter(historyAdapter);
+        if (histories.size()<1){
+            History_notifi.setVisibility(View.VISIBLE);
+        }else{
+            History_notifi.setVisibility(View.GONE);
+        }
     }
 }

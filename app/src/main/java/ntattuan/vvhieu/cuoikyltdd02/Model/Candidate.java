@@ -19,6 +19,8 @@ public class Candidate {
     private int IsActive;
     private boolean HoiPhi = false;
     private boolean DoanPhi = false;
+    private String HoiPhiCreateBy = "";
+    private String DoanPhiCreateBy = "";
 
     public Candidate() {
 
@@ -127,6 +129,21 @@ public class Candidate {
         DoanPhi = doanPhi;
     }
 
+    public String getHoiPhiCreateBy() {
+        return HoiPhiCreateBy;
+    }
+
+    public void setHoiPhiCreateBy(String hoiPhiCreateBy) {
+        HoiPhiCreateBy = hoiPhiCreateBy;
+    }
+
+    public String getDoanPhiCreateBy() {
+        return DoanPhiCreateBy;
+    }
+
+    public void setDoanPhiCreateBy(String doanPhiCreateBy) {
+        DoanPhiCreateBy = doanPhiCreateBy;
+    }
 
     public static List<Candidate> Sort(List<Candidate> listCandidate) {
         Collections.sort(listCandidate, new Comparator<Candidate>() {

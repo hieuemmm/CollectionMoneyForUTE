@@ -30,7 +30,7 @@
             android:id="@+id/DoanVien_Add_Tittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lịch sử thu Đoàn phí và Hội phí"
+            android:text="Thông tin và lịch sử"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -183,6 +183,16 @@
                     android:layout_height="wrap_content"
                     android:text="Hội Phí" />
             </com.google.android.material.tabs.TabLayout>
+
+            <TextView
+                android:id="@+id/History_notifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Lịch sử trống"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/History_listview" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

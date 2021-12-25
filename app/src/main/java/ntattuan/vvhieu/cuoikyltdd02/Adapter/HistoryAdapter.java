@@ -63,7 +63,7 @@ public class HistoryAdapter extends BaseAdapter {
         holder.History_Time.setText("Vào lúc: " + history.getTime());
         holder.History_Action.setText(history.getAction());
         if (history.getType()== App.ACTIONT_COLLECT){
-            holder.History_Action.setTextColor(Color.GREEN);
+            holder.History_Action.setTextColor(Color.rgb(88,183,63));
         }else{
             holder.History_Action.setTextColor(Color.RED);
         }

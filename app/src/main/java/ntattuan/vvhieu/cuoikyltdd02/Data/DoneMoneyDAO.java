@@ -44,7 +44,7 @@ public class DoneMoneyDAO extends DBManager {
     public List<DoneMoney> getListDoneMoneyByID(int Candidate_id, int type) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
-                TABLE_DONEMONEY + "INNER JOIN " + TABLE_MONEYROUND + " ON " + TABLE_MONEYROUND + "." + MONEYROUND_ID + " = " + TABLE_DONEMONEY + "." + DONEMONEY_MONEYROUND_ID
+                TABLE_DONEMONEY + " INNER JOIN " + TABLE_MONEYROUND + " ON " + TABLE_MONEYROUND + "." + MONEYROUND_ID + " = " + TABLE_DONEMONEY + "." + DONEMONEY_MONEYROUND_ID
                 , new String[]{TABLE_DONEMONEY + "." + DONEMONEY_ID, TABLE_DONEMONEY + "." + DONEMONEY_CANDIDATE_ID, TABLE_DONEMONEY + "." + DONEMONEY_MONEYROUND_ID, TABLE_DONEMONEY + "." + DONEMONEY_IS_ACTIVE, TABLE_DONEMONEY + "." + DONEMONEY_CREATE_BY, TABLE_DONEMONEY + "." + DONEMONEY_CREATE_TIME, TABLE_DONEMONEY + "." + DONEMONEY_DELETE_BY, TABLE_DONEMONEY + "." + DONEMONEY_DELETE_TIME},
                 TABLE_DONEMONEY+"."+DONEMONEY_CANDIDATE_ID + "=? AND " + TABLE_MONEYROUND+"."+MONEYROUND_TYPE + " =?",
                 new String[]{String.valueOf(Candidate_id), String.valueOf(type)}, null, null, null, null);
@@ -95,17 +95,17 @@ public class DoneMoneyDAO extends DBManager {
     }
 
     //checkExits
-    public boolean checkExits(int Candidate_id, int MoneyRound_id) {
+    public String checkExits(int Candidate_id, int MoneyRound_id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_DONEMONEY, new String[]{DONEMONEY_ID, DONEMONEY_CANDIDATE_ID, DONEMONEY_MONEYROUND_ID, DONEMONEY_IS_ACTIVE, DONEMONEY_CREATE_BY, DONEMONEY_CREATE_TIME, DONEMONEY_DELETE_BY, DONEMONEY_DELETE_TIME},
                 DONEMONEY_CANDIDATE_ID + "=? AND " + DONEMONEY_MONEYROUND_ID + "=? AND " + DONEMONEY_IS_ACTIVE + "=?",
                 new String[]{String.valueOf(Candidate_id), String.valueOf(MoneyRound_id), String.valueOf(App.ACTIVE)}, null, null, null, null);
         if (cursor.moveToFirst()) {
-            return true;//tồn tại
+            return cursor.getString(4);
         }
         cursor.close();
         db.close();
-        return false;
+        return "";
     }
 
     public List<DoneMoney> getAllDoneMoney() {

@@ -35,8 +35,8 @@ import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
 import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.R;
 
-public class RoundAdapter extends BaseAdapter{
-    private static OnChangeAdapter  onChangeAdapter;
+public class RoundAdapter extends BaseAdapter {
+    private static OnChangeAdapter onChangeAdapter;
     private List<Round> ListRound;
     private RoundDAO roundDAO;
     private LayoutInflater layoutInflater;
@@ -57,6 +57,7 @@ public class RoundAdapter extends BaseAdapter{
             onChangeAdapter.onChange();
         }
     }
+
     public void Edit(int id) {
         if (onChangeAdapter != null) {
             onChangeAdapter.onEdit(id);
@@ -81,6 +82,7 @@ public class RoundAdapter extends BaseAdapter{
     public long getItemId(int position) {
         return position;
     }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -89,6 +91,7 @@ public class RoundAdapter extends BaseAdapter{
             roundDAO = new RoundDAO(this.context);
             holder.Round_menu = (ImageView) convertView.findViewById(R.id.Round_menu);
             holder.Round_IsShow = (ImageView) convertView.findViewById(R.id.Round_IsShow);
+            holder.Round_Icon = (ImageView) convertView.findViewById(R.id.Round_Icon);
             holder.Round_STT = (TextView) convertView.findViewById(R.id.Round_STT);
             holder.Round_Name = (TextView) convertView.findViewById(R.id.Round_Name);
             holder.Round_CreateTime = (TextView) convertView.findViewById(R.id.Round_CreateTime);
@@ -99,14 +102,16 @@ public class RoundAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         Round round = this.ListRound.get(position);
-        holder.Round_STT.setText(String.valueOf(position + 1));
+        holder.Round_STT.setText(String.valueOf(position + 1 + "."));
         holder.Round_Name.setText(round.getName());
         holder.Round_CreateTime.setText("Ngày tạo: " + round.getCreateTime());
         holder.Round_Price.setText(App.CurrencytoVN(round.getPrice()));
         if (round.getIsShow() == App.SHOW) {
             holder.Round_IsShow.setVisibility(View.VISIBLE);
+            holder.Round_Icon.setBackground(context.getResources().getDrawable(R.drawable.ic_baseline_folder_special_24));
         } else {
             holder.Round_IsShow.setVisibility(View.GONE);
+            holder.Round_Icon.setBackground(context.getResources().getDrawable(R.drawable.ic_baseline_folder_open_24));
         }
         holder.Round_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +185,7 @@ public class RoundAdapter extends BaseAdapter{
     }
 
     static class ViewHolder {
-        ImageView Round_menu, Round_IsShow;
+        ImageView Round_menu, Round_IsShow, Round_Icon;
         TextView Round_STT, Round_Name, Round_CreateTime, Round_Price;
     }
 }

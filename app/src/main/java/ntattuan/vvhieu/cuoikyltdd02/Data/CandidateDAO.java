@@ -131,11 +131,15 @@ public class CandidateDAO extends DBManager {
                 candidate.setAvatar(cursor.getBlob(5));
                 candidate.setIsActive(cursor.getInt(6));
                 //Kiểm tra nạp đoàn phí/Hội phí hay chưa?
-                if (doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current)) {
+                String DoanPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current);
+                if (!DoanPhiCreateBy.equals("")){
                     candidate.setDoanPhi(true);
+                    candidate.setDoanPhiCreateBy(DoanPhiCreateBy);
                 }
-                if (doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienHoiPhi_Current)) {
+                String HoiPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienHoiPhi_Current);
+                if (!HoiPhiCreateBy.equals("")){
                     candidate.setHoiPhi(true);
+                    candidate.setHoiPhiCreateBy(DoanPhiCreateBy);
                 }
                 listCandidate.add(candidate);
             } while (cursor.moveToNext());
@@ -199,11 +203,15 @@ public class CandidateDAO extends DBManager {
                 candidate.setAvatar(cursor.getBlob(5));
                 candidate.setIsActive(cursor.getInt(6));
                 //Kiểm tra nạp đoàn phí/Hội phí hay chưa?
-                if (doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current)) {
+                String DoanPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current);
+                if (!DoanPhiCreateBy.equals("")){
                     candidate.setDoanPhi(true);
+                    candidate.setDoanPhiCreateBy(DoanPhiCreateBy);
                 }
-                if (doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienHoiPhi_Current)) {
+                String HoiPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienHoiPhi_Current);
+                if (!HoiPhiCreateBy.equals("")){
                     candidate.setHoiPhi(true);
+                    candidate.setHoiPhiCreateBy(DoanPhiCreateBy);
                 }
                 listCandidate.add(candidate);
             } while (cursor.moveToNext());

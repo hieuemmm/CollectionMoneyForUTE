@@ -317,12 +317,22 @@ public class CandidateAdapter extends BaseAdapter {
                 holder.Candidate_Button_DoanPhi.setVisibility(View.GONE);
             }
             if (candidate.isDoanPhi()) {
-                holder.Candidate_Button_DoanPhi.setBackground(this.context.getDrawable(R.drawable.btn_green));
+                if (candidate.getDoanPhiCreateBy().equals(App.UserLogined.getUserName())){
+                    holder.Candidate_Button_DoanPhi.setBackground(this.context.getDrawable(R.drawable.btn_green));
+                }else{
+                    holder.Candidate_Button_DoanPhi.setEnabled(false);
+                    holder.Candidate_Button_DoanPhi.setBackground(this.context.getDrawable(R.drawable.btn_green_enable));
+                }
             } else {
                 holder.Candidate_Button_DoanPhi.setBackground(this.context.getDrawable(R.drawable.btn_red_border));
             }
             if (candidate.isHoiPhi()) {
-                holder.Candidate_Button_HoiPhi.setBackground(this.context.getDrawable(R.drawable.btn_green));
+                if (candidate.getHoiPhiCreateBy().equals(App.UserLogined.getUserName())){
+                    holder.Candidate_Button_HoiPhi.setBackground(this.context.getDrawable(R.drawable.btn_green));
+                }else{
+                    holder.Candidate_Button_HoiPhi.setEnabled(false);
+                    holder.Candidate_Button_HoiPhi.setBackground(this.context.getDrawable(R.drawable.btn_green_enable));
+                }
             } else {
                 holder.Candidate_Button_HoiPhi.setBackground(this.context.getDrawable(R.drawable.btn_red_border));
             }
