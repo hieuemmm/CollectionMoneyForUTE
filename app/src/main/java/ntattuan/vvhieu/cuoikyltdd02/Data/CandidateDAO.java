@@ -50,13 +50,14 @@ public class CandidateDAO extends DBManager {
         }
         return false;
     }
+
     //Check Exit but notme
-    public boolean CheckCandidateExits(String CMND,String NotMe) {
+    public boolean CheckCandidateExits(String CMND, String NotMe) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_CANDIDATE,
                 new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
-                CANDIDATE_CMND + "=? AND "+ CANDIDATE_CMND +" !=? ",
-                new String[]{CMND,NotMe},
+                CANDIDATE_CMND + "=? AND " + CANDIDATE_CMND + " !=? ",
+                new String[]{CMND, NotMe},
                 null,
                 null,
                 null,
@@ -66,13 +67,14 @@ public class CandidateDAO extends DBManager {
         }
         return false;
     }
+
     //Check a SDT Exits
-    public boolean CheckSDTExits(String SDT,String NotMe) {
+    public boolean CheckSDTExits(String SDT, String NotMe) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_CANDIDATE,
                 new String[]{CANDIDATE_ID},
-                CANDIDATE_SDT + " = ? AND "+ CANDIDATE_SDT +" != ?",
-                new String[]{SDT,NotMe},
+                CANDIDATE_SDT + " = ? AND " + CANDIDATE_SDT + " != ?",
+                new String[]{SDT, NotMe},
                 null,
                 null,
                 null,
@@ -82,6 +84,7 @@ public class CandidateDAO extends DBManager {
         }
         return false;
     }
+
     //Check a SDT Exits
     public boolean CheckSDTExits(String SDT) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -98,6 +101,7 @@ public class CandidateDAO extends DBManager {
         }
         return false;
     }
+
     //Delete a Candidate
     public void deleteCandidate(Candidate candidate) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -132,12 +136,12 @@ public class CandidateDAO extends DBManager {
                 candidate.setIsActive(cursor.getInt(6));
                 //Kiểm tra nạp đoàn phí/Hội phí hay chưa?
                 String DoanPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current);
-                if (!DoanPhiCreateBy.equals("")){
+                if (!DoanPhiCreateBy.equals("")) {
                     candidate.setDoanPhi(true);
                     candidate.setDoanPhiCreateBy(DoanPhiCreateBy);
                 }
                 String HoiPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienHoiPhi_Current);
-                if (!HoiPhiCreateBy.equals("")){
+                if (!HoiPhiCreateBy.equals("")) {
                     candidate.setHoiPhi(true);
                     candidate.setHoiPhiCreateBy(DoanPhiCreateBy);
                 }
@@ -172,6 +176,11 @@ public class CandidateDAO extends DBManager {
 
     //select by name
     public List<Candidate> getCandidateByName(String name) {
+        String[] words = name.split("");
+        String key = "%";
+        for (String w : words) {
+            key += w + "%";
+        }
         List<Candidate> listCandidate = new ArrayList<Candidate>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
@@ -179,16 +188,16 @@ public class CandidateDAO extends DBManager {
             cursor = db.query(
                     TABLE_CANDIDATE,
                     new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
-                    CANDIDATE_NAME + " LIKE ? AND " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
-                    new String[]{"%" + name + "%", String.valueOf(App.NO_ACTIVE)},
+                     CANDIDATE_NAME + " LIKE ? OR " + CANDIDATE_CMND + " LIKE ? OR " + CANDIDATE_SDT + " LIKE ? AND " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
+                    new String[]{key, "%" + name + "%", "%" + name + "%", String.valueOf(App.NO_ACTIVE)},
                     null, null, null, null
             );
         } else {
             cursor = db.query(
                     TABLE_CANDIDATE,
                     new String[]{CANDIDATE_ID, CANDIDATE_NAME, CANDIDATE_CMND, CANDIDATE_SDT, CANDIDATE_GENDER, CANDIDATE_AVATAR, CANDIDATE_IS_ACTIVE},
-                    CANDIDATE_NAME + " LIKE ? AND " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
-                    new String[]{"%" + name + "%", String.valueOf(App.ACTIVE)},
+                    CANDIDATE_NAME + " LIKE ? OR " + CANDIDATE_CMND + " LIKE ? OR " + CANDIDATE_SDT + " LIKE ? AND " + CANDIDATE_IS_ACTIVE + " = ? COLLATE NOCASE",
+                    new String[]{key, "%" + name + "%", "%" + name + "%", String.valueOf(App.ACTIVE)},
                     null, null, null, null
             );
         }
@@ -204,12 +213,12 @@ public class CandidateDAO extends DBManager {
                 candidate.setIsActive(cursor.getInt(6));
                 //Kiểm tra nạp đoàn phí/Hội phí hay chưa?
                 String DoanPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienDoanPhi_Current);
-                if (!DoanPhiCreateBy.equals("")){
+                if (!DoanPhiCreateBy.equals("")) {
                     candidate.setDoanPhi(true);
                     candidate.setDoanPhiCreateBy(DoanPhiCreateBy);
                 }
                 String HoiPhiCreateBy = doneMoneyDAO.checkExits(candidate.getId(), App.DotNopTienHoiPhi_Current);
-                if (!HoiPhiCreateBy.equals("")){
+                if (!HoiPhiCreateBy.equals("")) {
                     candidate.setHoiPhi(true);
                     candidate.setHoiPhiCreateBy(DoanPhiCreateBy);
                 }
@@ -227,6 +236,7 @@ public class CandidateDAO extends DBManager {
         values.put(CANDIDATE_IS_ACTIVE, App.ACTIVE);
         db.update(TABLE_CANDIDATE, values, CANDIDATE_ID + "=?", new String[]{String.valueOf(candidate.getId())});
     }
+
     public void UpdateCandidate(Candidate candidate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

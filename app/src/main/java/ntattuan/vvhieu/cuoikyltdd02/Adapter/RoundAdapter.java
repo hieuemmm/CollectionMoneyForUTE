@@ -102,7 +102,7 @@ public class RoundAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Round round = this.ListRound.get(position);
-        holder.Round_STT.setText(String.valueOf(position + 1 + "."));
+        holder.Round_STT.setText(ListRound.size()-(position) + ".");
         holder.Round_Name.setText(round.getName());
         holder.Round_CreateTime.setText("Ngày tạo: " + round.getCreateTime());
         holder.Round_Price.setText(App.CurrencytoVN(round.getPrice()));

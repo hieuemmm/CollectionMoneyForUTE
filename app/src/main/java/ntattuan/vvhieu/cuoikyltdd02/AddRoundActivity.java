@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ntattuan.vvhieu.cuoikyltdd02.Adapter.RoundAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.CustomEvent.OnChangeAdapter;
 import ntattuan.vvhieu.cuoikyltdd02.Data.RoundDAO;
 import ntattuan.vvhieu.cuoikyltdd02.Model.Round;
@@ -27,6 +28,7 @@ public class AddRoundActivity extends AppCompatActivity {
     private RadioButton Round_Add_DoanPhi, Round_Add_HoiPhi;
     private Button Round_Add_ButtonAdd;
     private RoundDAO roundDAO;
+    private boolean FormNameRoundError = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class AddRoundActivity extends AppCompatActivity {
                 if (count != 0 && roundDAO.CheckRoundExits(s.toString())) {
                     Round_Add_NameError.setVisibility(View.VISIBLE);
                 } else{
+                    FormNameRoundError = false;
                     Round_Add_NameError.setVisibility(View.GONE);
                 }
             }
@@ -125,10 +128,10 @@ public class AddRoundActivity extends AppCompatActivity {
                                     App.NO_SHOW,
                                     Round_Add_DoanPhi.isChecked() ? App.TYPE_ROUND_DOAN_PHI : App.TYPE_ROUND_HOI_PHI
                             );
-                            if (roundDAO.CheckRoundExits(round.getName())){
+                            if (!FormNameRoundError){
                                 roundDAO.addRound(round);
-                                setResult(Activity.RESULT_CANCELED, new Intent());
                                 App.ToastShow(getBaseContext(), "Thêm đợt thành công");
+                                RoundAdapter.Change();
                                 finish();
                             }else{
                                 Round_Add_Name.requestFocus();

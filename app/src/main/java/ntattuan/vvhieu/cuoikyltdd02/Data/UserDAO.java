@@ -77,6 +77,16 @@ public class UserDAO extends DBManager {
         }
         return false;
     }
+    public boolean CheckLogin(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER, new String[]{USER_NAME, USER_PASSWORD, USER_ROLE},
+                USER_NAME + "=?" + " and " + USER_IS_ACTIVE + "=?",
+                new String[]{username,String.valueOf(App.ACTIVE)}, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
+    }
 
     //select by username
     public User getInforUser(User user) {

@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         userDAO = new UserDAO(this);
-        TaoDuLieuMau();
+        //TaoDuLieuMau();
         loginUsername = (TextView) findViewById(R.id.doanvien_textSearch);
         loginPassWord = (TextView) findViewById(R.id.loginPassWord);
         loginButton = (Button) findViewById(R.id.Candidate_Button_DoanPhi);
@@ -53,9 +53,15 @@ public class LoginActivity extends AppCompatActivity {
                     loginPassWord.getText().toString().trim()
             );
             if (userDAO.CheckLogin(user)) {
-                App.UserLogined = userDAO.getInforUser(user);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (userDAO.CheckLogin(user.getUserName())){
+                    App.UserLogined = userDAO.getInforUser(user);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast toast = Toast.makeText(LoginActivity.this, "Tài khoản đang bị khóa", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
             } else {
                 Toast toast = Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT);
                 toast.show();
@@ -65,10 +71,10 @@ public class LoginActivity extends AppCompatActivity {
     private void TaoDuLieuMau() {
         List<User> listUser = new ArrayList<User>();
         User user1 = new User("admin","admin","0398503361",App.ACTIVE,App.ROLE_ADMIN);
-        User user5 = new User("admin1","admin1","0398503364",App.NO_ACTIVE,App.ROLE_ADMIN);
-        User user2 = new User("bithu","bithu","0398503362",App.NO_ACTIVE,App.ROLE_BITHU);
-        User user3 = new User("bithu1","bithu1","0398503363",App.NO_ACTIVE,App.ROLE_BITHU);
-        User user4 = new User("bithu2","bithu2","0398503364",App.ACTIVE,App.ROLE_BITHU);
+        User user5 = new User("admin1","admin","0398503364",App.ACTIVE,App.ROLE_ADMIN);
+        User user2 = new User("bithu","admin","0398503362",App.ACTIVE,App.ROLE_BITHU);
+        User user3 = new User("bithu1","admin","0398503363",App.NO_ACTIVE,App.ROLE_BITHU);
+        User user4 = new User("bithu2","admin","0398503364",App.NO_ACTIVE,App.ROLE_BITHU);
         listUser.add(user1);
         listUser.add(user2);
         listUser.add(user3);

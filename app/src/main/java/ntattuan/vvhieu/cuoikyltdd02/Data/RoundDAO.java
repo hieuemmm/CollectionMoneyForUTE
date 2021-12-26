@@ -88,9 +88,9 @@ public class RoundDAO extends DBManager {
         List<Round> listRound = new ArrayList<Round>();
         String selectQuery = "SELECT  * FROM " + TABLE_MONEYROUND;
         if (App.Round_Tab_Current == App.ROUND_TAB_DOAN_PHI) {
-            selectQuery = "SELECT  * FROM " + TABLE_MONEYROUND + " WHERE " + MONEYROUND_TYPE + " = " + App.TYPE_ROUND_DOAN_PHI;
+            selectQuery = "SELECT  * FROM " + TABLE_MONEYROUND + " WHERE " + MONEYROUND_TYPE + " = " + App.TYPE_ROUND_DOAN_PHI + " ORDER BY " + MONEYROUND_CREATE_TIME +" DESC";
         } else {
-            selectQuery = "SELECT  * FROM " + TABLE_MONEYROUND + " WHERE " + MONEYROUND_TYPE + " = " + App.TYPE_ROUND_HOI_PHI;
+            selectQuery = "SELECT  * FROM " + TABLE_MONEYROUND + " WHERE " + MONEYROUND_TYPE + " = " + App.TYPE_ROUND_HOI_PHI + " ORDER BY " + MONEYROUND_CREATE_TIME  +" DESC";;
         }
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -136,8 +136,8 @@ public class RoundDAO extends DBManager {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         cursor = db.query(TABLE_MONEYROUND, new String[]{MONEYROUND_ID, MONEYROUND_NAME, MONEYROUND_CREATE_TIME, MONEYROUND_PRICE, MONEYROUND_IS_SHOW, MONEYROUND_TYPE},
-                MONEYROUND_TYPE + "=? AND "+ MONEYROUND_IS_SHOW +"= ?",
-                new String[]{String.valueOf(type),String.valueOf(App.SHOW)}, null, null, null, null);
+                MONEYROUND_TYPE + "=? AND " + MONEYROUND_IS_SHOW + "= ?",
+                new String[]{String.valueOf(type), String.valueOf(App.SHOW)}, null, null, null, null);
         Round round = new Round();
         if (cursor.moveToFirst()) {
             round.setId(cursor.getInt(0));

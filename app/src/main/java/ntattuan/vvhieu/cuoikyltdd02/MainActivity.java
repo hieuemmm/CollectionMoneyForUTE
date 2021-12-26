@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         bnv_Main = findViewById(R.id.bnv_Main);
         bnv_Main.add(new MeowBottomNavigation.Model(1, R.drawable.doan_vien));
-        if(App.UserLogined.getRole() == App.ROLE_ADMIN)
+        if(App.UserLogined.getRole() == App.ROLE_ADMIN) {
             bnv_Main.add(new MeowBottomNavigation.Model(2, R.drawable.tao_dot));
             bnv_Main.add(new MeowBottomNavigation.Model(3, R.drawable.tao_user));
+        }
         bnv_Main.add(new MeowBottomNavigation.Model(4, R.drawable.thongke));
         bnv_Main.add(new MeowBottomNavigation.Model(5, R.drawable.ca_nhan));
         bnv_Main.show(1, true);

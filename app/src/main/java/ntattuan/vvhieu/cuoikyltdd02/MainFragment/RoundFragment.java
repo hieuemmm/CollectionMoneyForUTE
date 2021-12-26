@@ -141,31 +141,31 @@ public class RoundFragment extends Fragment {
     private void TaoDuLieuMau() {
         List<Round> rounds = new ArrayList<Round>();
         Round roundDoanPhi1 = new Round(
-                "Đợt Đoàn Phí 1",
+                "Đợt Đoàn Phí HK219",
                 App.GetTimeCurrent(),
                 60000,
-                App.NO_SHOW,
+                App.SHOW,
                 App.TYPE_ROUND_DOAN_PHI
         );
         Round roundDoanPhi2 = new Round(
-                "Đợt Đoàn Phí 2",
+                "Đợt Đoàn Phí HK218",
                 App.GetTimeCurrent(),
                 70000,
-                App.SHOW,
+                App.NO_SHOW,
                 App.TYPE_ROUND_DOAN_PHI
         );
         Round roundHoiPhi1 = new Round(
-                "Đợt Hội Phí 1",
+                "Đợt Hội Phí HK219",
                 App.GetTimeCurrent(),
                 60000,
-                App.NO_SHOW,
+                App.SHOW,
                 App.TYPE_ROUND_HOI_PHI
         );
         Round roundHoiPhi2 = new Round(
-                "Đợt Hội Phí 2",
+                "Đợt Hội Phí HK218",
                 App.GetTimeCurrent(),
                 80000,
-                App.SHOW,
+                App.NO_SHOW,
                 App.TYPE_ROUND_HOI_PHI
         );
         rounds.add(roundDoanPhi1);
